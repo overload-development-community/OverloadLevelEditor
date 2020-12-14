@@ -101,10 +101,10 @@
     <PostBuildEvent>
       <Command>mkdir "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
 copy /B /Y "$(TargetPath)" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -119,20 +119,20 @@ copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Commo
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;EDITORPHYSICS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rdParty\PhysX\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\3rdParty\PhysX\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\3rdParty\PhysX\Lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\3rdParty\PhysX\Lib\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>mkdir "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
 copy /B /Y "$(TargetPath)" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -159,10 +159,10 @@ copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Commo
     <PostBuildEvent>
       <Command>mkdir "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
 copy /B /Y "$(TargetPath)" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\$(ConfigurationName)"
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -189,10 +189,10 @@ copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Commo
     <PostBuildEvent>
       <Command>mkdir "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
 copy /B /Y "$(TargetPath)" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
-copy /B /Y "$(SolutionDir)..\..\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Cooking_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PxFoundation_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
+copy /B /Y "$(SolutionDir)\3rdParty\PhysX\Bin\$(PlatformTarget)\PhysX3Common_$(PlatformTarget).dll" "$(SolutionDir)OverloadLevelEditor\bin\x64\$(ConfigurationName)"
 </Command>
     </PostBuildEvent>
     <PostBuildEvent>
