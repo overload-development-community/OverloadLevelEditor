@@ -17,10 +17,13 @@ OverloadLevelEditor/bin/
 OverloadLevelEditor/obj/
 FontStash/Debug/
 FontStash/x64/
-Debug/
+/Debug/
 EditorPhysics/Debug/
 EditorPhysics/x64/
-x64/
+/x64/
+
+
+!/3rdParty/
 
 # Ignore NuGet Packages
 *.nupkg
