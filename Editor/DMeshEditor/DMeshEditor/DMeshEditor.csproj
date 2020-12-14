@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E386B7ED-C1EB-408A-9AA1-AD7C1E8CC3EC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OverloadLevelEditor</RootNamespace>
+    <AssemblyName>OverloadDMeshEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CjClutter.ObjLoader.Loader">
+      <HintPath>Utility\CjClutter.ObjLoader.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\3rdParty\JSON.NET\Net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\..\3rdParty\OpenTK\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl">
+      <HintPath>..\..\..\3rdParty\OpenTK\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\Assets\Editor\LevelConvert\Clipping.cs">
+      <Link>Shared\Clipping.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Assets\Editor\LevelConvert\DMesh.cs">
+      <Link>Shared\DMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\Assets\Editor\LevelConvert\Vertex.cs">
+      <Link>Shared\Vertex.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\HSBColor.cs">
+      <Link>Utility\HSBColor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\UnityStub.cs">
+      <Link>Utility\UnityStub.cs</Link>
+    </Compile>
+    <Compile Include="DMesh\DMeshCreate.cs" />
+    <Compile Include="DMesh\DMeshEditor.cs" />
+    <Compile Include="DMesh\DMeshSelect.cs" />
+    <Compile Include="DMesh\DMeshTexture.cs" />
+    <Compile Include="DMesh\DMeshUtility.cs" />
+    <Compile Include="DMesh\DPolyEditor.cs" />
+    <Compile Include="DMesh\VertexEditor.cs" />
+    <Compile Include="Main\ShortcutKeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\ShortcutKeys.Designer.cs">
+      <DependentUpon>ShortcutKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\DMeshBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\DMeshBrowser.Designer.cs">
+      <DependentUpon>DMeshBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\PathLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\PathLocation.Designer.cs">
+      <DependentUpon>PathLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\TunnelBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\TunnelBuilder.Designer.cs">
+      <DependentUpon>TunnelBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\UVEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\UVEditor.Designer.cs">
+      <DependentUpon>UVEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\UVEditorUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\TextureManager.cs" />
+    <Compile Include="Main\GLViewBuild.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Main\EditorUndo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorKeyboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\GLViewDraw.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Popups\TextureList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\TextureList.Designer.cs">
+      <DependentUpon>TextureList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\UserPrefs.cs" />
+    <Compile Include="Utility\Utility.cs" />
+    <Compile Include="Main\Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main\GLView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Main\GLView.Designer.cs">
+      <DependentUpon>GLView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main\Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\GLView.resx">
+      <DependentUpon>GLView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\ShortcutKeys.resx">
+      <DependentUpon>ShortcutKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\DMeshBrowser.resx">
+      <DependentUpon>DMeshBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\PathLocation.resx">
+      <DependentUpon>PathLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\TunnelBuilder.resx">
+      <DependentUpon>TunnelBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\UVEditor.resx">
+      <DependentUpon>UVEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Popups\TextureList.resx">
+      <DependentUpon>TextureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SliderLabel\SliderLabel\SliderLabel.csproj">
+      <Project>{0F9AD050-C0D8-4773-A93B-F88A8F7632FF}</Project>
+      <Name>SliderLabel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Utility\Todo.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

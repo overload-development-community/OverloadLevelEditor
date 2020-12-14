@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D47B0DAE-4CFB-41EE-AD88-5892BD94EA91}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OverloadLevelEditor</RootNamespace>
+    <AssemblyName>OverloadLevelEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR,PUBLIC_RELEASE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicRelease|x86'">
+    <OutputPath>bin\x86\PublicRelease\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR;PUBLIC_RELEASE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublicRelease|x64'">
+    <OutputPath>bin\x64\PublicRelease\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR;PUBLIC_RELEASE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CjClutter.ObjLoader.Loader">
+      <HintPath>..\..\3rdParty\CjClutter.ObjLoader.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\3rdParty\JSON.NET\Net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\3rdParty\OpenTK\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl">
+      <HintPath>..\..\3rdParty\OpenTK\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="p4api.net">
+      <HintPath>..\..\3rdParty\P4API.NET\x64\lib\p4api.net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net40\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net40\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net40\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net40\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.2.9.0.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Assets\Editor\EditorToEditorSync.cs">
+      <Link>Shared\EditorToEditorSync.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Chunking.cs">
+      <Link>Shared\Chunking.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Clipping.cs">
+      <Link>Shared\Clipping.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Decal.cs">
+      <Link>Shared\Decal.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\DMesh.cs">
+      <Link>Shared\DMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\EditorBase.cs">
+      <Link>Export\EditorBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Entity.cs">
+      <Link>Shared\Entity.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\EntityPropsEditor.cs">
+      <Link>Shared\EntityPropsEditor.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\GMesh.cs">
+      <Link>Shared\GMesh.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Level.cs">
+      <Link>Shared\Level.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\LevelGlobalData.cs">
+      <Link>Shared\LevelGlobalData.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Murmur3.cs">
+      <Link>Export\Murmur3.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvert.cs">
+      <Link>Export\OverloadLevelConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertAssert.cs">
+      <Link>Export\OverloadLevelConvertAssert.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertConstuctGeometry.cs">
+      <Link>Export\OverloadLevelConvertConstuctGeometry.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertEntity.cs">
+      <Link>Export\OverloadLevelConvertEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertExtensions.cs">
+      <Link>Export\OverloadLevelConvertExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertISceneBroker.cs">
+      <Link>Export\OverloadLevelConvertISceneBroker.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertMeshBuilder.cs">
+      <Link>Export\OverloadLevelConvertMeshBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertProgressBarManager.cs">
+      <Link>Export\OverloadLevelConvertProgressBarManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\OverloadLevelConvertStructureBuilder.cs">
+      <Link>Export\OverloadLevelConvertStructureBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Segment.cs">
+      <Link>Shared\Segment.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Side.cs">
+      <Link>Shared\Side.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\UtilityGame.cs">
+      <Link>Shared\UtilityGame.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\LevelConvert\Vertex.cs">
+      <Link>Shared\Vertex.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\OpenSimplex\OpenSimplexNoise.cs">
+      <Link>Shared\OpenSimplexNoise.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\Utility\DeformationModules.cs">
+      <Link>Shared\DeformationModules.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\Utility\MathUtils.cs">
+      <Link>Shared\MathUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Editor\Utility\NoiseModules.cs">
+      <Link>Shared\NoiseModules.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Game\EntityProps.cs">
+      <Link>Shared\EntityProps.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Game\LevelData.cs">
+      <Link>Export\LevelData.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Game\LevelGeometry.cs">
+      <Link>Export\LevelGeometry.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Game\Overload.cs">
+      <Link>Shared\Overload.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\UserData\OverloadLevelConvertSerializer.cs">
+      <Link>Export\OverloadLevelConvertSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\UserData\UserCommandPackets.cs">
+      <Link>Export\UserCommandPackets.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\UserData\UserTypeSerializers.cs">
+      <Link>Export\UserTypeSerializers.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Utility\OverloadPrefabEnums.cs">
+      <Link>Shared\OverloadPrefabEnums.cs</Link>
+    </Compile>
+    <Compile Include="..\Assets\Scripts\Utility\Segment2SegmentVis.cs">
+      <Link>Export\Segment2SegmentVis.cs</Link>
+    </Compile>
+    <Compile Include="..\Editor\Common\HSBColor.cs">
+      <Link>Utility\HSBColor.cs</Link>
+    </Compile>
+    <Compile Include="..\Editor\Common\UnityStub.cs">
+      <Link>Utility\UnityStub.cs</Link>
+    </Compile>
+    <Compile Include="..\Editor\DMeshEditor\DMeshEditor\DMesh\DMeshEditor.cs">
+      <Link>Level\DMeshEditor.cs</Link>
+    </Compile>
+    <Compile Include="Export\SceneBroker.cs" />
+    <Compile Include="Export\UnityTypes.cs" />
+    <Compile Include="Level\Triangulation.cs" />
+    <Compile Include="Main\EditorDockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditMarkerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditMarkerForm.Designer.cs">
+      <DependentUpon>EditMarkerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\TextureSet.cs" />
+    <Compile Include="Panes\EditorEntitiesEditPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorEntitiesEditPane.Designer.cs">
+      <DependentUpon>EditorEntitiesEditPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorGeometryDecalsPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorGeometryDecalsPane.Designer.cs">
+      <DependentUpon>EditorGeometryDecalsPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorGeometryPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorGeometryPane.Designer.cs">
+      <DependentUpon>EditorGeometryPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorOutputPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorOutputPane.Designer.cs">
+      <DependentUpon>EditorOutputPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\EditorShell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorShell.Designer.cs">
+      <DependentUpon>EditorShell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorTexturingPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorTexturingPane.Designer.cs">
+      <DependentUpon>EditorTexturingPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorLevelGlobalPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorLevelGlobalPane.Designer.cs">
+      <DependentUpon>EditorLevelGlobalPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorViewOptionsPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorViewOptionsPane.Designer.cs">
+      <DependentUpon>EditorViewOptionsPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\FontStash.cs" />
+    <Compile Include="Main\WeakEvent.cs" />
+    <Compile Include="Popups\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panes\EditorLevelCustomInfoPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panes\EditorLevelCustomInfoPane.Designer.cs">
+      <DependentUpon>EditorLevelCustomInfoPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\EntityList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\EntityList.Designer.cs">
+      <DependentUpon>EntityList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\Perforce.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\Perforce.Designer.cs">
+      <DependentUpon>Perforce.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\ShortcutKeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\ShortcutKeys.Designer.cs">
+      <DependentUpon>ShortcutKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\TextureSetList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\TextureSetList.Designer.cs">
+      <DependentUpon>TextureSetList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\TunnelBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\TunnelBuilder.Designer.cs">
+      <DependentUpon>TunnelBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Level\GMeshEditor.cs" />
+    <Compile Include="Level\SegmentEditor.cs" />
+    <Compile Include="Level\SideEditor.cs" />
+    <Compile Include="Main\TextureManager.cs" />
+    <Compile Include="Level\VertexEditor.cs" />
+    <Compile Include="Level\EntityEditor.cs" />
+    <Compile Include="Popups\DecalListUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\DecalList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\DecalList.Designer.cs">
+      <DependentUpon>DecalList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Level\LevelEntity.cs" />
+    <Compile Include="Main\GLViewBuild.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Level\DecalEditor.cs" />
+    <Compile Include="Level\SideTexture.cs" />
+    <Compile Include="Level\LevelTexture.cs" />
+    <Compile Include="Main\EditorUndo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\EditorKeyboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Level\LevelSelectModify.cs" />
+    <Compile Include="Main\EditorOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\GLViewDraw.cs" />
+    <Compile Include="Level\LevelAddDelete.cs" />
+    <Compile Include="Popups\TextureList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\TextureList.Designer.cs">
+      <DependentUpon>TextureList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\UVEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\UVEditor.Designer.cs">
+      <DependentUpon>UVEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popups\UVEditorUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shared\JsonExtensions.cs" />
+    <Compile Include="Utility\UserPrefs.cs" />
+    <Compile Include="Utility\Utility.cs" />
+    <Compile Include="Level\LevelEditor.cs" />
+    <Compile Include="Main\Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Main\GLView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Main\GLView.Designer.cs">
+      <DependentUpon>GLView.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main\EditMarkerForm.resx">
+      <DependentUpon>EditMarkerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorEntitiesEditPane.resx">
+      <DependentUpon>EditorEntitiesEditPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorGeometryDecalsPane.resx">
+      <DependentUpon>EditorGeometryDecalsPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorGeometryPane.resx">
+      <DependentUpon>EditorGeometryPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorOutputPane.resx">
+      <DependentUpon>EditorOutputPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\EditorShell.resx">
+      <DependentUpon>EditorShell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorTexturingPane.resx">
+      <DependentUpon>EditorTexturingPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorLevelGlobalPane.resx">
+      <DependentUpon>EditorLevelGlobalPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorViewOptionsPane.resx">
+      <DependentUpon>EditorViewOptionsPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panes\EditorLevelCustomInfoPane.resx">
+      <DependentUpon>EditorLevelCustomInfoPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\DecalList.resx">
+      <DependentUpon>DecalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\GLView.resx">
+      <DependentUpon>GLView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\EntityList.resx">
+      <DependentUpon>EntityList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\Perforce.resx">
+      <DependentUpon>Perforce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\ShortcutKeys.resx">
+      <DependentUpon>ShortcutKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\TextureSetList.resx">
+      <DependentUpon>TextureSetList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\TunnelBuilder.resx">
+      <DependentUpon>TunnelBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popups\UVEditor.resx">
+      <DependentUpon>UVEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Popups\TextureList.resx">
+      <DependentUpon>TextureList.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Editor\EntityLinkLabel\EntityLinkLabel\EntityLinkLabel.csproj">
+      <Project>{8b25381c-d5b5-40d1-a36e-9e3b05069e76}</Project>
+      <Name>EntityLinkLabel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Editor\SliderLabel\SliderLabel\SliderLabel.csproj">
+      <Project>{0F9AD050-C0D8-4773-A93B-F88A8F7632FF}</Project>
+      <Name>SliderLabel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Utility\DefaultLayout.cs" />
+    <Content Include="license.txt" />
+    <Content Include="Utility\LukeTodo.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /R "$(SolutionDir)..\3rdParty\P4API.NET\$(PlatformName)\lib\p4bridge.dll" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

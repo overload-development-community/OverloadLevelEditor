@@ -1,0 +1,13 @@
+﻿LATER
+Default UV scalar sliderlabel?
+Shortcut keys for common modeling tools
+Switch marking and modeling buttons?
+Lathe marked verts
+- Radius
+- Direction (up/down/left/right)
+- Steps for full lathe
+- Total steps (FULL = -1, or change manually)
+16-way texture support
+
+Any other subtle control/workflow/modeling improvements?
+

@@ -1,0 +1,238 @@
+﻿OPTIMIZATIONS CONTINUED:
+* Emit less for explosions/etc
+* Create less debris on console (delete more pieces)
+* Add support to turn sounds on/off to see how much effect that has on XB1
+* Turn AA back on for XB1 (and make it a toggle to make sure it works)
+* Increase Bloom to 4 passes (instead of 3) to see if that removes flicker/ghosting
+* Add a 2nd page of graphics options
+* Make cloaked stuff less weird looking in briefings
+* Try SSAO
+* Reduce particles (and lights) from Blades charge attack
+* Tag all shadow lights that can be unshadowed (all CM/MP/SP levels except cm_backfire)
+* Add loading system for faster cloak/trails/robot shaders/etc
+
+OPTIMIZATIONS:
+1) Lights fading in at a distance (try a few settings, possibly narrow down a bit)
+2) Fewer particles (single setting, affects count, and uses no distortion/simpler versions)
+3) Shader complexity (robots, cloak, etc, single setting)
+4) Use smaller radius on dynamic lights (based on FX lighting)
+5) Add tags for lights to disable shadows (and reduce radius) to be applied to some currently shadow-casting lights
+6) Reduce level light radii by default on console (brighter by default) in startup
+8) Disable overlay camera drawing when not using, turn off global fog on console?
+8a) Reduced natural bloom iterations (3 or 4 instead of 5?)
+9) Change all robots (except bosses) to use Animation culling when offscreen.
+
+
+CUSTOM/LEVEL EDITOR FEATURES
+Output CM data file (with music)
+Support for skyboxes
+
+GENERAL FEATURES/TWEAKS
+Bigger kill message when you die
+Message when you get a kill?
+Warning when someone is about to win (1 kill away in TA or Anarchy)
+Anarchy+Team Anarchy selectable together?
+Fix warpers/chunking
+
+7) MAYBE: Re-import all levels with reduced collision on more decals (and more set to none)
+
+CONSOLE TWEAKS
+* Reduce lights: Items, lighting/chunking, particles
+* Reduce particles: (count, skip some)
+* Reduce some default shader settings (not noticeable?)
+* Reduce robot shader complexity (safe/easy changes only)
+
+* Use NonAlloc versions of Raycast (and any other physics functions)
+* Set sound to use XMA format (instead of OGG) on XB1
+Icons for different platforms (check if there's data first)
+
+* Performance: Distortion shader (GrabTexture or "register" command)?
+
+XB1
+* Cockpit off by default
+* Toggle for VSync
+* Output the actual resolution when arriving at Main Menu
+
+
+CONSOLE
+* Enable Graphics Jobs (Experimental) in the Other Settings (of Player Settings)
+* Reduced to 60hz physics on console for SP
+* Dynamic lighting reduced (OFF effects lighting)
+* uConsole disabled
+* Reduce hierarchy complexity (unparent stuff as much as possible) 
+* Figure out why reflection probe array is empty (and lights are not)
+* Disable light probes with OFF effects lighting
+
+
+* Possible Issue: Loading GI data can take many seconds (final loading phase of a scene)
+* Possible Issue: Scene culling can be expensive (particularly reflection probes - possibly try without it?)
+* Make sure we're using "UnityEditor.PlayerSettings.PS4.scriptOptimizationLevel = 3;"
+* Possible Issue: Should we be using Occlusion Portals to cut off rendering (instead of just occlusion)
+* Possible Issue: ALL Audio, especially Mixers might be slow on PS4 (https://ps4.siedev.net/forums/thread/270853/)
+-- Possibly fixed by 2017.4?
+
+* XB1 Antialiasing broken? https://forum.unity.com/threads/post-processing-stack-v1-anti-aliasing-not-working-in-builds.535495/
+
+
+
+* Use Razor CPU (PS4 installed program) to identify issues?
+
+GSync monitor issues
+
+
+MAYBE?
+Make red buttons more obvious that they're interactive
+
+BIG UPDATE/CONSOLE VERSION
+
+
+
+
+
+
+
+
+
+
+
+MONSTERBALL
+2-3 arenas to start
+Everyone has level 2 speed + boost
+- Impulse, Driller, and Falcons
+5 minute match, highest score wins (time extends until one team wins)
+Teleport ball on score, possibly not players
+
+GENERAL
+Xbox 360/PS2 buttons
+
+LEVELS (AFTER SP CONVERSION)
+(lava fall effects)
+
+UI
+Applying changes popup (copy key assignment popup and simplify)
+
+BUG: Should restore energy to min of 100 when starting new level (didn't on 13) - Need repro steps
+
+LEVEL 12
+MAYBE: Green debris from power cores by 1st key?
+
+
+OBJECT EFFECTS
+remove mesh effects: warper
+matcen fx
+warper fx
+wind tunnel fx
+energy center fx
+ec grate fx
+robot eye glow fx
+item fx (alien orb, cloak, energy, invuln, log, rapid, key, shields, upgrade 1 + 2)
+alien pod fx
+alien stasis fx
+
+LEVEL EFFECTS
+lava fall
+lava sparks (need to emit from mesh instead)
+
+OPTIMIZATIONS
+SP level textures
+Make sure lens flares are totally disabled for robot lights when turned off
+Make sure to compile out/optimizing Analytics (taking up time and creating garbage)
+- Definitely turn off completely for console
+
+
+BUGS
+Robots drifting
+
+POLISH/ETC
+Level 11 sound variety (rifles from Dan)
+Better smoothing around lava edges (shouldn't be too hard in theory)
+Missile pod sound is weak
+Tweak close robot spawning distances
+
+SOMEONE ELSE
+Set CM level selection to correct level/screen when you return to the CM Menu
+
+
+UPDATES
+* Daily CM - play once, or any number of times?
+-- Once, and tell player some details (level + weapons)?
+-- Or once, with no details, so player communication is encouraged?
+
+
+MAYBE
+Lightning arcs on clawbot
+"Level Life" items - Pipes spewing smoke, rotating/flashing lights, simple animated pumps
+Create fewer particles when already many alive
+Better explosion sound on Powercores?
+Creeper mines jitter, why???
+Differentiate CM robot surge more
+Show boss name and play taunt animation/effects for a brief moment
+- Try to tie taunt into what boss does effectively
+Make damage appear to be more in-front and behind based on direction (angle the forward vec down by 30-45 degrees?)
+Reset damage points on respawn
+Aim assist too weak (may have to make it better too)
+Simple (non-interactive) light shafts on narrow spotlights
+Flashing/rotating lights (with appropriate texture pulse)
+
+
+EVERSPACE IDEAS/ETC
+* Mouse:
+-- Mouse stays in position on screen (circular limit), ship turns to look in that direction
+-- Leaving mouse alone keeps moving ship in that direction
+-- Aiming of guns goes towards cursor, not front of ship (could maybe turn ship/cockpit as mouse moves?)
+
+MUSIC INSPIRATION (aside from the soundtrack direction doc)
+* PrototypeRaptor - Golden Idols (intro)
+See email to Allister about track 4
+
+
+POSSIBLE ROBOT NAMES
+Decimator
+Shredder
+Scourge
+Cobra
+Scorpion
+Panther
+Swarmer
+Vindicator
+Assassin
+Vampire
+Behemoth
+Phantom
+Guardian
+Spectre
+Dragon
+Leviathan
+Centaur
+Basilisk
+Cyclops
+Chimera
+Gargoyle
+Kraken
+Manticore
+Minotaur
+Ogre
+Triton
+Troll
+Wyvern
+Serpent
+Griffin
+Demon
+Banshee
+Cerberus
+Golem
+Gorgon
+Hydra
+Valkyrie
+Wraith
+Berzerker
+Titan
+Scavenger
+Infernal
+Beast
+Shade
+Shambler
+Mammoth
+Beholder
+Brute
+Gladiator
