@@ -263,12 +263,12 @@ namespace OverloadLevelEditor
 			return count;
 		}
 
-		public Entity FindEntityWithGUID(string id)
+		public Entity FindEntityWithGUID(string id, bool show_warning)
 		{
-			return FindEntityWithGUID(Guid.Parse(id));
+			return FindEntityWithGUID(Guid.Parse(id), show_warning);
 		}
 
-		public Entity FindEntityWithGUID(Guid id)
+		public Entity FindEntityWithGUID(Guid id, bool show_warning)
 		{
 			for (int i = 0; i < MAX_ENTITIES; i++) {
 				if (entity[i].alive && entity[i].guid == id) {
@@ -277,7 +277,9 @@ namespace OverloadLevelEditor
 			}
 
 #if OVERLOAD_LEVEL_EDITOR
-			Utility.DebugPopup(string.Format("Could not find the entity with GUID: {0}", id.ToPrettyString()));
+			if (show_warning) {
+				Utility.DebugPopup(string.Format("Could not find the entity with GUID: {0}", id.ToPrettyString()));
+			}
 #endif
 			return null;
 		}

@@ -1035,7 +1035,7 @@ namespace OverloadLevelEditor
 					case MouseButtons.Right:
 					case MouseButtons.Middle:
 						Guid guid = entity.GetLinkGUID(e.Index);
-						Entity linked_e = m_level.FindEntityWithGUID(guid);
+						Entity linked_e = m_level.FindEntityWithGUID(guid, true);
 						if (linked_e != null) {
 							if (e.Button == MouseButtons.Right) {
 								linked_e.marked = true;
@@ -1056,7 +1056,7 @@ namespace OverloadLevelEditor
 				return " - ";
 			}
 
-			Entity e = m_level.FindEntityWithGUID(guid);
+			Entity e = m_level.FindEntityWithGUID(guid, false);
 			if (e != null) {
 				return string.Format("{0} - {1}", e.Type, guid.ToPrettyString());
 			}
