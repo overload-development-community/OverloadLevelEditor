@@ -532,7 +532,10 @@ namespace OverloadLevelEditor
 			if (DrawTexture()) {
 				SetAmbientColor(C_ambient_texture);
 				GL.Enable(EnableCap.Texture2D);
-				GL.BindTexture(TextureTarget.Texture2D, editor.tm_level.m_gl_id[0]);
+				if (editor.tm_level.m_gl_id.Count > 0)
+				{
+					GL.BindTexture(TextureTarget.Texture2D, editor.tm_level.m_gl_id[0]);
+				}
 			} else {
 				GL.Disable(EnableCap.Texture2D);
 				SetAmbientColor(C_ambient_solid);

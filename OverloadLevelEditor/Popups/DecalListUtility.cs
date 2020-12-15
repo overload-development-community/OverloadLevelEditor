@@ -45,6 +45,10 @@ namespace OverloadLevelEditor
 
 		public void LoadDecalsInDir(string dir, bool all_dir = false)
 		{
+			if (!Directory.Exists(dir))
+            {
+				return;
+            }
 			string[] files = Directory.GetFiles(dir, "*.dmesh", (all_dir ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly));
 
 			m_dmesh = new List<DMesh>();

@@ -127,28 +127,41 @@ namespace OverloadLevelEditor
 		private void CheckTextureLists()
 		{
 			string errors = "";
-			string default_texture = tm_level.m_name[0];
-			//Go through all texture sets and make sure textures exist
-			foreach (TextureSet texture_set in ActiveDocument.TextureSets) {
-				if (tm_level.FindTextureIDByName(texture_set.Wall) == -1) {
-					errors += "Cannot find texture '" + texture_set.Wall + "' in texture set '" + texture_set.Name + "'.\n";
-					texture_set.Wall = default_texture;
-				}
-				if (tm_level.FindTextureIDByName(texture_set.Floor) == -1) {
-					errors += "Cannot find texture '" + texture_set.Floor + "' in texture set '" + texture_set.Name + "'.\n";
-					texture_set.Floor = default_texture;
-				}
-				if (tm_level.FindTextureIDByName(texture_set.Ceiling) == -1) {
-					errors += "Cannot find texture '" + texture_set.Ceiling + "' in texture set '" + texture_set.Name + "'.\n";
-					texture_set.Ceiling = default_texture;
-				}
-				if (tm_level.FindTextureIDByName(texture_set.Cave) == -1) {
-					errors += "Cannot find texture '" + texture_set.Cave + "' in texture set '" + texture_set.Name + "'.\n";
-					texture_set.Cave = default_texture;
-				}
+			if (tm_level.m_name.Count == 0)
+			{
+				MessageBox.Show("Errors in texture sets:\n\n" + "Cannot find default texture.", "Texture Set Errors");
 			}
-			if (errors != "") {
-				MessageBox.Show("Errors in texture sets:\n\n" + errors + "\nMissing texutres replaced with '" + default_texture + "'.", "Texture Set Errors");
+			else
+			{
+				string default_texture = tm_level.m_name[0];
+				//Go through all texture sets and make sure textures exist
+				foreach (TextureSet texture_set in ActiveDocument.TextureSets)
+				{
+					if (tm_level.FindTextureIDByName(texture_set.Wall) == -1)
+					{
+						errors += "Cannot find texture '" + texture_set.Wall + "' in texture set '" + texture_set.Name + "'.\n";
+						texture_set.Wall = default_texture;
+					}
+					if (tm_level.FindTextureIDByName(texture_set.Floor) == -1)
+					{
+						errors += "Cannot find texture '" + texture_set.Floor + "' in texture set '" + texture_set.Name + "'.\n";
+						texture_set.Floor = default_texture;
+					}
+					if (tm_level.FindTextureIDByName(texture_set.Ceiling) == -1)
+					{
+						errors += "Cannot find texture '" + texture_set.Ceiling + "' in texture set '" + texture_set.Name + "'.\n";
+						texture_set.Ceiling = default_texture;
+					}
+					if (tm_level.FindTextureIDByName(texture_set.Cave) == -1)
+					{
+						errors += "Cannot find texture '" + texture_set.Cave + "' in texture set '" + texture_set.Name + "'.\n";
+						texture_set.Cave = default_texture;
+					}
+				}
+				if (errors != "")
+				{
+					MessageBox.Show("Errors in texture sets:\n\n" + errors + "\nMissing texutres replaced with '" + default_texture + "'.", "Texture Set Errors");
+				}
 			}
 		}
 
