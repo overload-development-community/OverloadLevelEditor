@@ -174,9 +174,12 @@ namespace OverloadLevelEditor
 			}
 			for (int i = 0; i < DMesh.NUM_LIGHTS; i++) {
 				checklist_lights.Items.Add("Light " + i.ToString());
-			} 
-			
-			listbox.SelectedIndex = 0;
+			}
+
+			if (listbox.Items.Count > 0)
+			{
+				listbox.SelectedIndex = 0;
+			}
 
 			InitColors();
 
@@ -534,6 +537,10 @@ namespace OverloadLevelEditor
 
 		public void UpdateActiveDMesh()
 		{
+			if (m_active_dmesh == null)
+            {
+				return;
+            }
 			m_active_dmesh.UpdateGLTextures(tex_manager);
 			BuildDecalMesh(m_active_dmesh);
 			m_selected_face = -1;

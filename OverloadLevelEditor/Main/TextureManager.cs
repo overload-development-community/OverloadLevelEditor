@@ -41,6 +41,11 @@ namespace OverloadLevelEditor
 
 		public void LoadTexturesInDir(string dir, bool all_dir = false, bool dispose_bmp = false)
 		{
+			if (!Directory.Exists(dir))
+            {
+				return;
+            }
+
 			string[] files = Directory.GetFiles(dir, "*.png", (all_dir ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly));
 			Bitmap bmp_large;
 			Bitmap bmp_small;
