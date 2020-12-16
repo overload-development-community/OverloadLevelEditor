@@ -712,7 +712,10 @@ namespace OverloadLevelEditor
 			for (int i = 0; i < 5; i++) {
 				Guid guid = e.GetLinkGUID(i);
             if (guid != Guid.Empty) {
-					Entity link_entity = editor.LoadedLevel.FindEntityWithGUID(guid);
+					Entity link_entity = editor.LoadedLevel.FindEntityWithGUID(guid, false);
+					if (link_entity == null) {
+						continue;
+					}
 					GL.PushMatrix();
 					Matrix4 m4 = e.m_rotation.Inverted();
                GL.MultMatrix(ref m4);

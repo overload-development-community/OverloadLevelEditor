@@ -115,7 +115,7 @@ namespace OverloadLevelEditor
 				var editor = ActiveDocument;
 				var level = ActiveLevel;
 
-				level.selected_entity = level.FindEntityWithGUID(e.Node.Name).num;
+				level.selected_entity = level.FindEntityWithGUID(e.Node.Name, true).num;
 				editor.RefreshGeometry();
 			}
 		}
@@ -127,7 +127,7 @@ namespace OverloadLevelEditor
 				var editor = ActiveDocument;
 				var level = ActiveLevel;
 
-				editor.SetProjOffsetAllViews(level.FindEntityWithGUID(e.Node.Name).position);
+				editor.SetProjOffsetAllViews(level.FindEntityWithGUID(e.Node.Name, true).position);
 				editor.RefreshGeometry();
 			}
 		}
