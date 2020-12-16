@@ -401,7 +401,7 @@ public partial class OverloadLevelConverter
 							// Ambient particle special case
 							if(entity_src.SubType == (int)OverloadLevelEditor.TriggerSubType.BOX_LAVA_NORMAL 
 								|| entity_src.SubType == (int)OverloadLevelEditor.TriggerSubType.BOX_LAVA_ALIEN)
-                            {
+							{
 								// Ambient particle entities should have this component but don't
 								var e_ap = entity_instance.AddComponent("TriggerAmbientParticles");
 								e_ap.SetProperty("m_repeat_delay", p_trigger.repeat_delay);
