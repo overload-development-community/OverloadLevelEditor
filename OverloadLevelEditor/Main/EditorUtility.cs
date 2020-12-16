@@ -41,11 +41,12 @@ namespace OverloadLevelEditor
 			Vector3 src_side_normal;
 			if (m_level.GetSelectedSide() != null) {
 				m_level.GetSelectedSidePosAndNormal(out m_src_side_pos, out src_side_normal);
+				m_src_side_rotation = this.m_level.GetSelectedSideOrientation();
 			} else {
 				m_src_side_pos = Vector3.Zero;
 				src_side_normal = Vector3.UnitX;
+				m_src_side_rotation = Matrix4.Identity;
 			}
-			m_src_side_rotation = ComputeRotationFromNormal(src_side_normal);
 
 			m_src_seg_count = m_lvl_buffer.CopyMarkedSegments(m_level);
 
@@ -63,7 +64,7 @@ namespace OverloadLevelEditor
 				if (aligned) {
 					Vector3 dest_side_normal;
 					m_level.GetSelectedSidePosAndNormal(out m_dest_side_pos, out dest_side_normal);
-					m_dest_side_rotation = ComputeRotationFromNormal(-dest_side_normal).Inverted();
+					m_dest_side_rotation = this.m_level.GetSelectedSideOrientation();
 				}
 				m_level.PasteSegments(m_lvl_buffer, aligned);
 
@@ -112,7 +113,9 @@ namespace OverloadLevelEditor
 			v -= m_src_side_pos;
 
 			// Rotate to align to src normal
-			v = Vector3.Transform(v, m_src_side_rotation);
+			v = Vector3.Transform(v, m_src_side_rotation.Inverted());
+
+			v = Vector3.Transform(v, Matrix4.CreateScale(-1, 1, -1));
 
 			// Rotate to align to dest normal
 			v = Vector3.Transform(v, m_dest_side_rotation);

@@ -536,7 +536,8 @@ namespace OverloadLevelEditor
 				//Move & rotate entity if required
 				if (aligned) {
 					dest_entity.SetPosition(editor.AlignPasteVert(dest_entity.position));
-					dest_entity.Rotate(editor.SourceSideRotation);
+					dest_entity.Rotate(editor.SourceSideRotation.Inverted());
+					dest_entity.Rotate(Matrix4.CreateRotationY(Utility.RAD_180));
 					dest_entity.Rotate(editor.DestSideRotation);
 				}
 
