@@ -317,7 +317,7 @@ namespace OverloadLevelEditor
 					                      folder_level_textures,
 				                      };
 
-			var executable_dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            var executable_dir = Program.m_datadir;
 
 			// Pop up folders until we find some of the subfolders we need
 			var test_folder = executable_dir;

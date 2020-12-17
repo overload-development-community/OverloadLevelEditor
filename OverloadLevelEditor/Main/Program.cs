@@ -11,6 +11,7 @@ AND AGREES TO THE TERMS HEREIN AND ACCEPTS THE SAME BY USE OF THIS FILE.
 COPYRIGHT 2015-2020 REVIVAL PRODUCTIONS, LLC.  ALL RIGHTS RESERVED.
 */
 
+using Mono.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,26 @@ namespace OverloadLevelEditor
 {
     static class Program
     {
+        public static string m_datadir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            OptionSet options = new OptionSet()
+                .Add("datadir=", "Specifies the working folder for file operations", option => m_datadir = option);
+
+            try
+            {
+                options.Parse(args);
+            }
+            catch (OptionException)
+            {
+                throw new Exception("Invalid command line argument");
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new EditorShell());
