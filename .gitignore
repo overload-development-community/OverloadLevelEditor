@@ -6,6 +6,7 @@
 *.sap
 *.suo
 *.csproj.user
+*.vcxproj.user
 .vs/
 
 Editor/SliderLabel/SliderLabel/bin/
