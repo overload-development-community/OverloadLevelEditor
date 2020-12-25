@@ -424,6 +424,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Shared\JsonExtensions.cs" />
+    <Compile Include="Utility\OpenTKQuaternion.cs" />
     <Compile Include="Utility\UserPrefs.cs" />
     <Compile Include="Utility\Utility.cs" />
     <Compile Include="Level\LevelEditor.cs" />

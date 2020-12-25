@@ -2072,7 +2072,7 @@ public partial class OverloadLevelConverter
                 var lightComp = lightGameObject.AddComponent( "Light" );
 
 				lightGameObject.Transform.Position = decalLight.m_position.ToUnity();
-				lightGameObject.Transform.Rotation = decalLight.m_orientation.ExtractRotation().ToUnity();
+				lightGameObject.Transform.Rotation = OpenTKExtensions.OpenTKQuaternion.ExtractRotation(decalLight.m_orientation).ToUnity();
 
 				//lightGameObject.transform.parent = lightContainerObject.transform; // parent to the prefab
 				IGameObjectBroker chunk_container;
