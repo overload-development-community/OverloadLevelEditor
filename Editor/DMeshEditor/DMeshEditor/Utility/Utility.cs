@@ -486,6 +486,17 @@ namespace OverloadLevelEditor
 			return (point - result).Length * (sn > 0f ? 1f : -1f);
 		}
 
+		public static Vector3 ProjectOntoPlane(Vector3 point, Vector3 plane_pos, Vector3 plane_norm)
+		{
+			float sb, sn, sd;
+
+			sn = -Vector3.Dot(plane_norm, (point - plane_pos));
+			sd = Vector3.Dot(plane_norm, plane_norm);
+			sb = sn / sd;
+
+			return point + sb * plane_norm;
+		}
+
 		public static float FindDistanceToEdge(Vector3 pt, Vector3 p1, Vector3 p2)
 		{
 			return FindDistanceToEdge(new Vector2(pt.X, pt.Y), p1, p2);

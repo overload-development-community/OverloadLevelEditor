@@ -15,6 +15,7 @@ using System;
 using OpenTK;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 // DPOLY - Editor
 // More general functions/variables for polygons
@@ -453,34 +454,27 @@ namespace OverloadLevelEditor
 		{
 			Vector3 center = FindCenter(orig_list, dmesh);
 			Vector3 normal = Utility.FindNormal(dmesh.vertex[orig_list[0]], dmesh.vertex[orig_list[1]], dmesh.vertex[orig_list[2]]);
+			Vector3 v0 = (Utility.ProjectOntoPlane(dmesh.vertex[orig_list[0]], center, normal) - center).Normalized();
+			Vector3 cross = Vector3.Cross(normal, v0);
 
-			Vector3 cross, v1, v2;
-			float dot;
-			int count = orig_list.Count;
-			// Sort the verts 1 at a time, num_vert times
-			for (int k = 0; k < count; k++) {
-				for (int i = 0; i < count; i++) {
-					v1 = dmesh.vertex[orig_list[i]];
-					v1 = (v1 - center).Normalized();
-
-					int j = (i + 1) % count;
-					// Compare cross product of i and j with normal
-					v2 = dmesh.vertex[orig_list[j]];
-					v2 = (v2 - center).Normalized();
-
-					cross = Vector3.Cross(v1, v2).Normalized();
-					dot = Vector3.Dot(cross, normal);
-
-					// Swap the verts
-					if (dot <= 0f) {
-						int temp = orig_list[i];
-						orig_list[i] = orig_list[j];
-						orig_list[j] = temp;
-					}
+			// We're basically getting polar co-ordinates for each vertex relative to the center of the face
+			// and the first vertex of the face. We can then sort the vertex list in ascending order of angle.
+			// (The previous system was not resilient to "spiral" vertex orders.)
+			var vertAngles = new SortedDictionary<int, float>();
+			foreach (int vertex in orig_list)
+			{
+				Vector3 v = (Utility.ProjectOntoPlane(dmesh.vertex[vertex], center, normal) - center).Normalized();
+				float x = Vector3.Dot(v, v0);
+				float y = Vector3.Dot(v, cross);
+				float angle = (float)Math.Atan2(y, x);
+				if (angle < 0)
+				{
+					angle += (float)(2 * Math.PI);
 				}
+				vertAngles[vertex] = angle;
 			}
 
-			return orig_list;
+			return orig_list.OrderBy(vert => vertAngles[vert]).ToList();
 		}
 
 		public Axis FindShortestAxis(List<int> orig_list, DMesh dmesh)
@@ -507,7 +501,7 @@ namespace OverloadLevelEditor
 			for (int i = 0; i < vert.Count; i++) {
 				sort_vrt.Add(vert[i]);
 			}
-			SortVertsForPlanar(sort_vrt, dmesh);
+			sort_vrt = SortVertsForPlanar(sort_vrt, dmesh);
 			
 			// Get the other properties sorted
 			for (int i = 0; i < sort_vrt.Count; i++) {

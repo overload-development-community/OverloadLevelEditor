@@ -14,6 +14,7 @@ COPYRIGHT 2015-2020 REVIVAL PRODUCTIONS, LLC.  ALL RIGHTS RESERVED.
 using OpenTK;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OverloadLevelEditor
 {
@@ -792,6 +793,73 @@ namespace OverloadLevelEditor
 			polygon[new_poly_idx].RemoveVertList(verts_after1);
 		}
 
+		public void SplitPolygonByPlane(DPoly dp, Clipping.ClipPlane plane)
+		{
+			var vertices = dp.vert.Select((vert, index) =>
+			{
+				var cVertex = new Clipping.CVertex();
+				cVertex.Position = vertex[vert];
+				cVertex.UV = dp.tex_uv[index];
+				cVertex.Normal = dp.normal[index];
+				return cVertex;
+			});
+
+			if (!Clipping.Clipper.WouldBeClipped(vertices, plane))
+			{
+				return;
+			}
+			var split_info = Clipping.Clipper.SplitPolygonByPlane(vertices, plane);
+
+			List<int> back_verts = new List<int>();
+			foreach (var vert in split_info.back.Cast<Clipping.CVertex>())
+			{
+				int vert_idx = MaybeAddVertAtPosition(vert.Position);
+				back_verts.Add(vert_idx);
+				// New points (i.e. those on the split plane) should be in both the front and back group.
+				// So we only look for them in the back group.
+				if (!dp.vert.Contains(vert_idx))
+				{
+					dp.AddVert(vert_idx, vert.Normal, vert.UV);
+				}
+			}
+			dp.ReSortVerts(this);
+
+			List<int> front_verts = new List<int>();
+			foreach (var vert in split_info.front)
+			{
+				int vert_idx = FindVertIndexAtPosition(vert.Position);
+				if (vert_idx >= 0)
+				{
+					front_verts.Add(vert_idx);
+				}
+				else
+				{
+					Utility.DebugPopup("Unexpected vertices found in split polygon.");
+				}
+			}
+
+			// Make a copy of the resulting polygon
+			int new_poly_idx = polygon.Count;
+			CopyPolygonSameVerts(dp);
+			var new_poly = polygon[new_poly_idx];
+
+			// Then remove unwanted verts from each side
+			for (int i = dp.num_verts - 1; i >= 0; i--)
+			{
+				if (!back_verts.Contains(dp.vert[i]))
+				{
+					dp.RemoveVert(i);
+				}
+			}
+			for (int i = new_poly.num_verts - 1; i >= 0; i--)
+			{
+				if (!front_verts.Contains(new_poly.vert[i]))
+				{
+					new_poly.RemoveVert(i);
+				}
+			}
+		}
+
 		public void SubdividMarkedPolys()
 		{
 			List<DPoly> poly_list = GetMarkedPolys();
@@ -840,6 +908,18 @@ namespace OverloadLevelEditor
 			// No matches
 			AddVertexEditor(pos, false);
 			return vertex.Count - 1;
+		}
+
+		public int FindVertIndexAtPosition(Vector3 pos)
+		{
+			for (int i = 0; i < vertex.Count; i++)
+			{
+				if (Utility.AlmostOverlapping(pos, vertex[i]))
+				{
+					return i;
+				}
+			}
+			return -1;
 		}
 
 		public void GetVertBounds(List<int> verts, out Vector3 min, out Vector3 max)
