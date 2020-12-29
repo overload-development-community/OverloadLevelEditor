@@ -27,7 +27,6 @@ using OpenTK.Graphics.OpenGL;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
-using ObjLoader.Loader.Loaders;
 
 // DECALLIST - Utility
 // Lots of various utility functions for the DecalList
@@ -39,8 +38,6 @@ namespace OverloadLevelEditor
 	{
 		public bool m_decal_loaded = false;
 		
-		// Temporary variables for importing from OBJ
-		public LoadResult m_i_load_result;
 		public DMesh m_active_dmesh;
 
 		public void LoadDecalsInDir(string dir, bool all_dir = false)
@@ -70,43 +67,12 @@ namespace OverloadLevelEditor
 
 		public bool ImportOBJToDecal(string obj_file_name)
 		{
-			if( !Path.IsPathRooted(obj_file_name) ) {
-				// Make sure the file path is absolute
-				obj_file_name = Path.GetFullPath(obj_file_name);
-			}
-
-			if( !File.Exists( obj_file_name ) ) {
+			if (!ImportOBJ.ImportOBJToDMesh(m_active_dmesh, obj_file_name, m_units_inches, editor, tex_manager))
 				return false;
-			}
 
-			string obj_working_dir = Path.GetDirectoryName(obj_file_name);
+			m_decal_loaded = true;
 
-			string current_working_directory = Directory.GetCurrentDirectory();
-			try {
-				ObjLoaderFactory obj_loader_factory = new ObjLoaderFactory();
-				IObjLoader obj_loader = obj_loader_factory.Create();
-
-				// Have to set working directory so loading of the material file will work
-				Directory.SetCurrentDirectory(obj_working_dir);
-				using (FileStream file_stream = new FileStream(obj_file_name, FileMode.Open, FileAccess.Read)) {
-					m_i_load_result = obj_loader.Load(file_stream);
-					file_stream.Close();
-				}
-
-				m_decal_loaded = true;
-
-				ConvertLoadResultToDMesh();
-				//m_active_dmesh.CenterMesh();
-				m_active_dmesh.FlipMesh(-1f, 1f);
-				m_active_dmesh.FlipVertNormalsZ();
-				//active_dmesh.RotateMesh90();
-
-				UpdateActiveDMesh();
-			}
-			finally {
-				// Restore the working directory
-				Directory.SetCurrentDirectory( current_working_directory );
-			}
+			UpdateActiveDMesh();
 
 			gl_custom.Invalidate();
 
@@ -126,123 +92,6 @@ namespace OverloadLevelEditor
 				for (int i = 0; i < m_active_dmesh.vertex.Count; i++) {
 					m_active_dmesh.vertex[i] *= (2f / max_scale);
 				}
-			}
-		}
-
-		public void ConvertLoadResultToDMesh()
-		{
-			// Convert the verts
-			ObjLoader.Loader.Data.VertexData.Vertex v;
-			for (int i = 0; i < m_i_load_result.Vertices.Count; i++) {
-				v = m_i_load_result.Vertices[i];
-				m_active_dmesh.AddVertex(v.X, v.Y, v.Z);
-			}
-
-			if (m_units_inches) {
-				for (int i = 0; i < m_active_dmesh.vertex.Count; i++) {
-					m_active_dmesh.vertex[i] *= 0.0254f;
-				}
-			}
-
-			// Rotate all the verts 180
-			m_active_dmesh.RotateMesh180();
-			
-			// Convert the faces
-			int[] vrt_idx = new int[3];
-			Vector3[] nrml = new Vector3[3];
-			Vector2[] uv = new Vector2[3];
-			string tex_name;
-
-			int tex_idx = 0;
-			
-			ObjLoader.Loader.Data.VertexData.Normal n;
-			ObjLoader.Loader.Data.VertexData.Texture t;
-			ObjLoader.Loader.Data.Elements.FaceVertex fv;
-
-			foreach (ObjLoader.Loader.Data.Elements.Group g in m_i_load_result.Groups) {
-				tex_name = g.Material.DiffuseTextureMap;
-				if (!CopyImportTextureToDecalFolder(tex_name)) {
-					Utility.DebugLog("No texture imported/updated: " + tex_name);
-				} else {
-					Utility.DebugLog("Imported/updated a texture: " + tex_name);
-				}
-
-				string tex_id_name = Path.ChangeExtension(tex_name, null);
-				if (tex_manager.FindTextureIDByName(tex_id_name) < 0) {
-					// Get the texture (if it exists)
-					if (File.Exists(tex_id_name + ".png")) {
-						tex_manager.LoadTexture(tex_id_name + ".png", true);
-					} else {
-						// Try to steal it from the level directory instead
-						string level_tex_name = editor.m_filepath_level_textures + "\\" + tex_id_name + ".png";
-						if (File.Exists(level_tex_name)) {
-							// Copy it to the decal textures directory, then load it
-							string decal_tex_name = editor.m_filepath_decal_textures + "\\" + tex_id_name + ".png";
-							if (!File.Exists(decal_tex_name)) {
-								File.Copy(level_tex_name, decal_tex_name);
-
-								tex_manager.LoadTexture(decal_tex_name, true);
-							}
-						} else {
-							Utility.DebugPopup("No PNG file could be found matching the name: " + tex_id_name, "IMPORT WARNING!");
-						}
-					}
-				}
-
-				m_active_dmesh.AddTexture(tex_idx, tex_id_name);
-				foreach (ObjLoader.Loader.Data.Elements.Face f in g.Faces) {
-					// Only works for 3 vert faces (currently)
-					for (int i = 0; i < f.Count; i++) {
-						if (i < 3) {
-							fv = f[i];
-							vrt_idx[i] = fv.VertexIndex - 1;
-							n = m_i_load_result.Normals[fv.NormalIndex - 1];
-							t = m_i_load_result.Textures[fv.TextureIndex - 1];
-							nrml[i] = new Vector3(n.X, n.Y, n.Z);
-
-                            // Since we use OpenGL for rendering, but don't load
-                            // the texture images in upside down (as OpenGL expects)
-                            // we must flip the V coordinate of the UVs so that decals
-                            // render correctly.
-                            //
-                            // What I don't understand is why the U coordinates of geometry
-                            // decals need to be flipped also. I wonder if this is the
-                            // in the WaveFront OBJ specification or something else.
-                            // uv[i] = new Vector2(1.0f - t.X, 1.0f - t.Y);
-									 uv[i] = new Vector2(t.X, 1f - t.Y);
-						}
-					}
-
-					m_active_dmesh.AddFace(vrt_idx, nrml, uv, tex_idx);
-				}
-
-				tex_idx += 1;
-			}
-		}
-
-		public bool CopyImportTextureToDecalFolder(string name)
-		{
-			string dest_file = Path.Combine( editor.m_filepath_decal_textures, name );
-			string src_file = Path.Combine( Directory.GetCurrentDirectory(), name );
-			if (dest_file == src_file) {
-				// No need to do anything
-				return false;
-			}
-
-			if( !File.Exists( src_file ) ) {
-				Utility.DebugPopup( string.Format( "The file \"{0}\" does not exist", src_file ) );
-				return false;
-			}
-
-			try {
-				if( File.Exists( dest_file ) ) {
-					File.Delete( dest_file );
-				}
-				File.Copy( src_file, dest_file );
-				return true;
-			} catch {
-				Utility.DebugLog( "Tried to import to a texture that is currently in use" );
-				return false;
 			}
 		}
 
