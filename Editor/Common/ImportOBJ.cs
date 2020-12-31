@@ -12,48 +12,71 @@ COPYRIGHT 2015-2020 REVIVAL PRODUCTIONS, LLC.  ALL RIGHTS RESERVED.
 */
 
 using System.IO;
-using ObjLoader.Loader.Loaders;
 using OpenTK;
+using System;
+using System.Linq;
+using System.Drawing;
+using System.Drawing.Imaging;
+using ObjFileLib;
+using System.Collections.Generic;
 
 namespace OverloadLevelEditor
 {
 	public static class ImportOBJ {
-		public static bool CopyImportTextureToDecalFolder(string name, string filepath_decal_textures)
+		public static bool CopyImportTextureToDecalFolder(string obj_file_name, string name, string filepath_decal_textures)
 		{
-			string dest_file = Path.Combine( filepath_decal_textures, name );
-			string src_file = Path.Combine( Directory.GetCurrentDirectory(), name );
-			if (dest_file == src_file) {
+			string dest_file = Path.Combine( filepath_decal_textures, Path.GetFileNameWithoutExtension(name) + ".png" );
+			string obj_dir = Path.GetDirectoryName(obj_file_name);
+			string src_file = Path.Combine( obj_dir, name );
+
+			if ( !File.Exists( src_file ) ) {
+				string[] parts = name.Split( new [] { '/', '\\' } );
+				for ( int i = parts.Length - 1; i > 0; i-- ) {
+					src_file = Path.Combine( obj_dir, string.Join( new string(Path.DirectorySeparatorChar, 1), parts.Skip(i) ) );
+					if ( File.Exists( src_file ) )
+						break;
+				}
+			}
+
+			if (dest_file.Equals(src_file, StringComparison.InvariantCultureIgnoreCase) || File.Exists( dest_file ) ) {
 				// No need to do anything
 				return false;
 			}
 
 			if( !File.Exists( src_file ) ) {
-				Utility.DebugPopup( string.Format( "The file \"{0}\" does not exist", src_file ) );
+				Utility.DebugPopup( string.Format( "The file \"{0}\" does not exist", name ) );
 				return false;
 			}
 
 			try {
-				if( File.Exists( dest_file ) ) {
-					File.Delete( dest_file );
+				string ext = Path.GetExtension( src_file );
+				if ( ext.Equals( ".png", StringComparison.InvariantCultureIgnoreCase ) ) {
+					File.Copy( src_file, dest_file );
+				} else {
+					var bmp = ext.Equals( ".tga", StringComparison.InvariantCultureIgnoreCase ) ?
+						TGAFile.Read( new BinaryReader( new BufferedStream( File.OpenRead( src_file ) ) ) ) :
+						new Bitmap( src_file );
+					bmp.Save( dest_file, ImageFormat.Png );
+					bmp.Dispose();
 				}
-				File.Copy( src_file, dest_file );
 				return true;
-			} catch {
-				Utility.DebugLog( "Tried to import to a texture that is currently in use" );
+			} catch (Exception ex) {
+				Utility.DebugLog( "Failed to import texture " + src_file + ": " + ex.Message );
 				return false;
 			}
 		}
 
-		public static void ConvertLoadResultToDMesh(LoadResult load_result, DMesh dm, bool units_inches, Editor editor, TextureManager tex_manager)
+		public static void ConvertObjFileToDMesh(ObjFile obj_file, DMesh dm, bool units_inches, string obj_file_name, Editor editor, TextureManager tex_manager)
 		{
+			dm.Init(editor);
+
 			// Convert the verts
-			ObjLoader.Loader.Data.VertexData.Vertex v;
-			for (int i = 0; i < load_result.Vertices.Count; i++) {
-				v = load_result.Vertices[i];
+			foreach (var v in obj_file.Vertices) {
+				// Flip Z for coordinate system translation
 				#if DMESH_EDITOR
-				dm.AddVertexEditor(new Vector3(v.X, v.Y, v.Z), false);
+				dm.AddVertexEditor(new Vector3(v.X, v.Y, -v.Z), false);
 				#else
-				dm.AddVertex(v.X, v.Y, v.Z);
+				dm.AddVertex(v.X, v.Y, -v.Z);
 				#endif
 			}
 
@@ -63,118 +86,95 @@ namespace OverloadLevelEditor
 				}
 			}
 
-			// Rotate all the verts 180
-			dm.RotateMesh180();
+			// Convert the textures
+			for (var i = 0; i < obj_file.Materials.Count; i++) {
+				var material = obj_file.Materials[i];
+				string tex_name = material.Diffuse.Texture;
+				string tex_id_name = tex_name != null ? Path.GetFileNameWithoutExtension(tex_name) : material.Name;
+				string decal_tex_name = Path.Combine(editor.m_filepath_decal_textures, tex_id_name + ".png");
 
-			// Convert the faces
-			int[] vrt_idx = new int[3];
-			Vector3[] nrml = new Vector3[3];
-			Vector2[] uv = new Vector2[3];
-			string tex_name;
-
-			int tex_idx = 0;
-
-			ObjLoader.Loader.Data.VertexData.Normal n;
-			ObjLoader.Loader.Data.VertexData.Texture t;
-			ObjLoader.Loader.Data.Elements.FaceVertex fv;
-
-			foreach (ObjLoader.Loader.Data.Elements.Group g in load_result.Groups) {
-				tex_name = g.Material.DiffuseTextureMap;
-				if (!CopyImportTextureToDecalFolder(tex_name, editor.m_filepath_decal_textures)) {
-					Utility.DebugLog("No texture imported/updated: " + tex_name);
-				} else {
-					Utility.DebugLog("Imported/updated a texture: " + tex_name);
+				if (tex_name != null) {
+					if (!CopyImportTextureToDecalFolder(obj_file_name, tex_name, editor.m_filepath_decal_textures)) {
+						Utility.DebugLog("No texture imported/updated: " + tex_name);
+					} else {
+						Utility.DebugLog("Imported/updated a texture: " + tex_name);
+					}
+				} else if (!File.Exists(decal_tex_name)) {
+					using (var bmp = new Bitmap(1, 1, PixelFormat.Format32bppArgb)) {
+						bmp.SetPixel(0, 0, material.Diffuse.Color);
+						bmp.Save(decal_tex_name, ImageFormat.Png);
+					}
 				}
 
-				string tex_id_name = Path.ChangeExtension(tex_name, null);
 				if (tex_manager.FindTextureIDByName(tex_id_name) < 0) {
 					// Get the texture (if it exists)
-					if (File.Exists(tex_id_name + ".png")) {
-						tex_manager.LoadTexture(tex_id_name + ".png", true);
+					if (File.Exists(decal_tex_name)) {
+						tex_manager.AddTexture(decal_tex_name);
 					} else {
 						// Try to steal it from the level directory instead
-						string level_tex_name = editor.m_filepath_level_textures + "\\" + tex_id_name + ".png";
+						string level_tex_name = Path.Combine(editor.m_filepath_level_textures, tex_id_name + ".png");
 						if (File.Exists(level_tex_name)) {
 							// Copy it to the decal textures directory, then load it
-							string decal_tex_name = editor.m_filepath_decal_textures + "\\" + tex_id_name + ".png";
 							if (!File.Exists(decal_tex_name)) {
 								File.Copy(level_tex_name, decal_tex_name);
 
-								tex_manager.LoadTexture(decal_tex_name, true);
+								tex_manager.AddTexture(decal_tex_name);
 							}
 						} else {
-							Utility.DebugPopup("No PNG file could be found matching the name: " + tex_id_name, "IMPORT WARNING!");
+							editor.AddOutputText("IMPORT WARNING: No PNG file could be found matching the name: " + tex_id_name);
 						}
 					}
 				}
 
-				dm.AddTexture(tex_idx, tex_id_name);
-				foreach (ObjLoader.Loader.Data.Elements.Face f in g.Faces) {
-					// Only works for 3 vert faces (currently)
-					for (int i = 0; i < f.Count; i++) {
-						if (i < 3) {
-							fv = f[i];
-							vrt_idx[i] = fv.VertexIndex - 1;
-							n = load_result.Normals[fv.NormalIndex - 1];
-							t = load_result.Textures[fv.TextureIndex - 1];
-							nrml[i] = new Vector3(n.X, n.Y, n.Z);
+				dm.AddTexture(i, tex_id_name);
+			}
 
-							// Since we use OpenGL for rendering, but don't load
-							// the texture images in upside down (as OpenGL expects)
-							// we must flip the V coordinate of the UVs so that decals
-							// render correctly.
-							//
-							// What I don't understand is why the U coordinates of geometry
-							// decals need to be flipped also. I wonder if this is the
-							// in the WaveFront OBJ specification or something else.
-							// uv[i] = new Vector2(1.0f - t.X, 1.0f - t.Y);
-										uv[i] = new Vector2(t.X, 1f - t.Y);
-						}
-					}
-
-					dm.AddFace(vrt_idx, nrml, uv, tex_idx);
+			// Convert the faces
+			var vrt_idx = new int[3];
+			var uv = new Vector2[3];
+			var nrml = new Vector3[3];
+			var tris = new List<ObjFile.FaceVert[]>();
+			foreach (var f in obj_file.Faces) {
+				// Triangulate face
+				tris.Clear();
+				var fv = f.FaceVerts;
+				if (fv.Length == 3) {
+					tris.Add(fv);
+				} else if (fv.Length == 4 &&
+					Vector3.Subtract(obj_file.Vertices[fv[0].VertIdx], obj_file.Vertices[fv[2].VertIdx]).LengthSquared >
+					Vector3.Subtract(obj_file.Vertices[fv[1].VertIdx], obj_file.Vertices[fv[3].VertIdx]).LengthSquared) {
+					tris.Add(new [] { fv[0], fv[1], fv[3] });
+					tris.Add(new [] { fv[1], fv[2], fv[3] });
+				} else { // assume convex...
+					for (int i = 1; i < fv.Length - 1; i++)
+						tris.Add(new [] { fv[0], fv[i], fv[i + 1] });
 				}
 
-				tex_idx += 1;
+				foreach (var tri in tris) {
+					for (var i = 0; i < 3; i++) {
+						// Flip Z/V and reverse vertex order for coordinate system translation
+						int fi = 2 - i;
+						vrt_idx[i] = tri[fi].VertIdx;
+						nrml[i] = obj_file.Normals[tri[fi].NormIdx];
+						nrml[i].Z = -nrml[i].Z;
+						uv[i] = tri[fi].UVIdx >= 0 ? obj_file.UVs[tri[fi].UVIdx] : new Vector2();
+						uv[i].Y = 1.0f - uv[i].Y;
+					}
+					dm.AddFace(vrt_idx, nrml, uv, f.MatIdx);
+				}
 			}
 		}
 
 		public static bool ImportOBJToDMesh(DMesh dm, string obj_file_name, bool units_inches, Editor editor, TextureManager tex_manager)
 		{
-			if( !Path.IsPathRooted(obj_file_name) ) {
-				// Make sure the file path is absolute
-				obj_file_name = Path.GetFullPath(obj_file_name);
-			}
-
 			if( !File.Exists( obj_file_name ) ) {
 				return false;
 			}
 
-			string obj_working_dir = Path.GetDirectoryName(obj_file_name);
+			ObjFile obj_file = new ObjFile();
+			obj_file.Load(obj_file_name);
 
-			string current_working_directory = Directory.GetCurrentDirectory();
-			try {
-				LoadResult load_result;
-				ObjLoaderFactory obj_loader_factory = new ObjLoaderFactory();
-				IObjLoader obj_loader = obj_loader_factory.Create();
-
-				// Have to set working directory so loading of the material file will work
-				Directory.SetCurrentDirectory(obj_working_dir);
-				using (FileStream file_stream = new FileStream(obj_file_name, FileMode.Open, FileAccess.Read)) {
-					load_result = obj_loader.Load(file_stream);
-					file_stream.Close();
-				}
-
-				ConvertLoadResultToDMesh(load_result, dm, units_inches, editor, tex_manager);
-				//m_active_dmesh.CenterMesh();
-				dm.FlipMesh(-1f, 1f);
-				dm.FlipVertNormalsZ();
-				//active_dmesh.RotateMesh90();
-			}
-			finally {
-				// Restore the working directory
-				Directory.SetCurrentDirectory( current_working_directory );
-			}
+			ConvertObjFileToDMesh(obj_file, dm, units_inches, obj_file_name, editor, tex_manager);
 
 			return true;
 		}

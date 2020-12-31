@@ -81,6 +81,8 @@ namespace OverloadLevelEditor
 
 		private Bitmap ResizeBitmap(Bitmap source_bmp, int width, int height)
 		{
+			if (source_bmp.Width < width && source_bmp.Height < height)
+				return (Bitmap)source_bmp.Clone();
 			Bitmap result = new Bitmap(width, height);
 			using (Graphics g = Graphics.FromImage(result))
 				g.DrawImage(source_bmp, 0, 0, width, height);
@@ -117,6 +119,18 @@ namespace OverloadLevelEditor
 		{
 			Bitmap bmp = new Bitmap(bmp_name);
 			return LoadTexture(bmp, dispose_bmp); // NOTE(Jeff): shouldn't this always dispose this bmp?
+		}
+
+		public int AddTexture(string bmp_name)
+		{
+			Bitmap bmp = new Bitmap(bmp_name);
+			var small_bmp = ResizeBitmap(bmp, 128, 128);
+			int gl_id = LoadTexture(bmp, true);
+
+			m_name.Add(Path.GetFileNameWithoutExtension(bmp_name));
+			m_bitmap.Add(small_bmp);
+			m_gl_id.Add(gl_id);
+			return gl_id;
 		}
 
 		public int FindTextureIDByName(string tex_name)

@@ -106,6 +106,18 @@ namespace OverloadLevelEditor
 			return LoadTexture(bmp, dispose_bmp); // NOTE(Jeff): shouldn't this always dispose this bmp?
 		}
 
+		public int AddTexture(string bmp_name)
+		{
+			Bitmap bmp = new Bitmap(bmp_name);
+			var small_bmp = ResizeBitmap(bmp, 128, 128);
+			int gl_id = LoadTexture(bmp, true);
+
+			m_name.Add(Path.GetFileNameWithoutExtension(bmp_name));
+			m_bitmap.Add(small_bmp);
+			m_gl_id.Add(gl_id);
+			return gl_id;
+		}
+
 		public int FindTextureIndexByName(string tex_name)
 		{
 			if (tex_name == "") {

@@ -998,7 +998,7 @@ namespace OverloadLevelEditor
 
 				dm.UpdateGLTextures(tm_decal);
 
-				dm.dirty = true;
+				dm.dirty = false;
 
 				if (!dm.WasConverted()) {
 					m_dmesh.ConvertTrisToPolysRaw();
@@ -1009,7 +1009,7 @@ namespace OverloadLevelEditor
 				return true;
 			}
 			catch (Exception ex) {
-				Utility.DebugLog("Failed to load OBJ: " + ex.Message);
+				Utility.DebugPopup("Failed to load OBJ: " + ex.Message, "Error");
 				return false;
 			}
 		}
