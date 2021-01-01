@@ -537,9 +537,9 @@ namespace OverloadLevelEditor
 			RefreshGeometry();
 		}
 
-		public void CycleEntityPivot()
+		public void CycleEntityPivot(bool reverse)
 		{
-			m_pivot_mode = (PivotMode)(((int)m_pivot_mode + 1) % (int)PivotMode.NUM);
+			m_pivot_mode = (PivotMode)(((int)m_pivot_mode + (reverse ? (int)PivotMode.NUM - 1 : 1)) % (int)PivotMode.NUM);
 			UpdateOptionLabels();
 		}
 
