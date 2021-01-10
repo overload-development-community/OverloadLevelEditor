@@ -809,11 +809,22 @@ namespace OverloadLevelEditor
 				return;
 			}
 			var split_info = Clipping.Clipper.SplitPolygonByPlane(vertices, plane);
+			if (split_info.front == null || split_info.back == null)
+			{
+				// This can happen if polygons touch the split plane but don't cross it
+				return;
+			}
 
 			List<int> back_verts = new List<int>();
 			foreach (var vert in split_info.back.Cast<Clipping.CVertex>())
 			{
-				int vert_idx = MaybeAddVertAtPosition(vert.Position);
+				// Check if a vertex at this position already exists. Prefer vertices within the polygon.
+				int vert_idx = FindVertIndexAtPosition(dp.vert, vert.Position);
+				if (vert_idx == -1)
+				{
+					// Not found, check the whole DMesh. Add a vert if none exists.
+					vert_idx = MaybeAddVertAtPosition(vert.Position);
+				}
 				back_verts.Add(vert_idx);
 				// New points (i.e. those on the split plane) should be in both the front and back group.
 				// So we only look for them in the back group.
@@ -827,7 +838,12 @@ namespace OverloadLevelEditor
 			List<int> front_verts = new List<int>();
 			foreach (var vert in split_info.front)
 			{
-				int vert_idx = FindVertIndexAtPosition(vert.Position);
+				int vert_idx = FindVertIndexAtPosition(dp.vert, vert.Position);
+				if (vert_idx == -1)
+				{
+					// Again check the whole DMesh, but it should not be necessary to add one.
+					vert_idx = FindVertIndexAtPosition(vert.Position);
+				}
 				if (vert_idx >= 0)
 				{
 					front_verts.Add(vert_idx);
@@ -917,6 +933,18 @@ namespace OverloadLevelEditor
 				if (Utility.AlmostOverlapping(pos, vertex[i]))
 				{
 					return i;
+				}
+			}
+			return -1;
+		}
+
+		public int FindVertIndexAtPosition(List<int> verts, Vector3 pos)
+		{
+			foreach (int idx in verts)
+			{
+				if (Utility.AlmostOverlapping(pos, vertex[idx]))
+				{
+					return idx;
 				}
 			}
 			return -1;
