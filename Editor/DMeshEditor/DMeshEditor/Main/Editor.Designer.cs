@@ -13,34 +13,34 @@ COPYRIGHT 2015-2020 REVIVAL PRODUCTIONS, LLC.  ALL RIGHTS RESERVED.
 
 namespace OverloadLevelEditor
 {
-    partial class Editor
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class Editor
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			this.menu_strip = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,6 +171,7 @@ namespace OverloadLevelEditor
 			this.button_color3 = new System.Windows.Forms.Button();
 			this.button_color2 = new System.Windows.Forms.Button();
 			this.button_color1 = new System.Windows.Forms.Button();
+			this.button_bisect_poly = new System.Windows.Forms.Button();
 			this.slider_sizeheight = new OverloadLevelEditor.SliderLabel();
 			this.slider_sizesegments = new OverloadLevelEditor.SliderLabel();
 			this.label_vert_display = new System.Windows.Forms.Label();
@@ -231,9 +232,9 @@ namespace OverloadLevelEditor
 			// menu_strip
 			// 
 			this.menu_strip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+			this.fileToolStripMenuItem,
+			this.editToolStripMenuItem,
+			this.optionsToolStripMenuItem});
 			this.menu_strip.Location = new System.Drawing.Point(0, 0);
 			this.menu_strip.Name = "menu_strip";
 			this.menu_strip.Size = new System.Drawing.Size(1466, 24);
@@ -243,19 +244,19 @@ namespace OverloadLevelEditor
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.loadToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.saveasToolStripMenuItem,
-            this.toolStripMenuItem5,
-            this.exportToOBJToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.recent1ToolStripMenuItem,
-            this.recent2ToolStripMenuItem,
-            this.recent3ToolStripMenuItem,
-            this.recent4ToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.exitToolStripMenuItem});
+			this.newToolStripMenuItem,
+			this.loadToolStripMenuItem,
+			this.saveToolStripMenuItem,
+			this.saveasToolStripMenuItem,
+			this.toolStripMenuItem5,
+			this.exportToOBJToolStripMenuItem,
+			this.toolStripMenuItem1,
+			this.recent1ToolStripMenuItem,
+			this.recent2ToolStripMenuItem,
+			this.recent3ToolStripMenuItem,
+			this.recent4ToolStripMenuItem,
+			this.toolStripMenuItem2,
+			this.exitToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -350,11 +351,11 @@ namespace OverloadLevelEditor
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.checkPolygonsToolStripMenuItem});
+			this.undoToolStripMenuItem,
+			this.redoToolStripMenuItem,
+			this.toolStripMenuItem3,
+			this.toolStripMenuItem4,
+			this.checkPolygonsToolStripMenuItem});
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
 			this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
 			this.editToolStripMenuItem.Text = "Edit";
@@ -374,7 +375,7 @@ namespace OverloadLevelEditor
 			this.redoToolStripMenuItem.Enabled = false;
 			this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
 			this.redoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Z)));
+			| System.Windows.Forms.Keys.Z)));
 			this.redoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
 			this.redoToolStripMenuItem.Text = "Redo";
 			this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
@@ -399,11 +400,11 @@ namespace OverloadLevelEditor
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autoCopyFaceFlagsToMarkedToolStripMenuItem,
-            this.toolStripMenuItem6,
-            this.forceLowResTexturesToolStripMenuItem,
-            this.showShortcutsToolStripMenuItem,
-            this.filePathLocationsToolStripMenuItem});
+			this.autoCopyFaceFlagsToMarkedToolStripMenuItem,
+			this.toolStripMenuItem6,
+			this.forceLowResTexturesToolStripMenuItem,
+			this.showShortcutsToolStripMenuItem,
+			this.filePathLocationsToolStripMenuItem});
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.optionsToolStripMenuItem.Text = "Options";
@@ -446,8 +447,8 @@ namespace OverloadLevelEditor
 			// gl_panel
 			// 
 			this.gl_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.gl_panel.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.gl_panel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.gl_panel.Location = new System.Drawing.Point(152, 27);
@@ -591,7 +592,7 @@ namespace OverloadLevelEditor
 			// button_merge_verts
 			// 
 			this.button_merge_verts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_merge_verts.Location = new System.Drawing.Point(1321, 931);
+			this.button_merge_verts.Location = new System.Drawing.Point(1321, 954);
 			this.button_merge_verts.Margin = new System.Windows.Forms.Padding(1);
 			this.button_merge_verts.Name = "button_merge_verts";
 			this.button_merge_verts.Size = new System.Drawing.Size(143, 21);
@@ -993,7 +994,7 @@ namespace OverloadLevelEditor
 			// button_combine_two
 			// 
 			this.button_combine_two.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_combine_two.Location = new System.Drawing.Point(1321, 885);
+			this.button_combine_two.Location = new System.Drawing.Point(1321, 908);
 			this.button_combine_two.Margin = new System.Windows.Forms.Padding(1);
 			this.button_combine_two.Name = "button_combine_two";
 			this.button_combine_two.Size = new System.Drawing.Size(143, 21);
@@ -1006,7 +1007,7 @@ namespace OverloadLevelEditor
 			// button_triangulate_fan
 			// 
 			this.button_triangulate_fan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_triangulate_fan.Location = new System.Drawing.Point(1321, 862);
+			this.button_triangulate_fan.Location = new System.Drawing.Point(1321, 885);
 			this.button_triangulate_fan.Margin = new System.Windows.Forms.Padding(1);
 			this.button_triangulate_fan.Name = "button_triangulate_fan";
 			this.button_triangulate_fan.Size = new System.Drawing.Size(143, 21);
@@ -1019,7 +1020,7 @@ namespace OverloadLevelEditor
 			// button_triangulate_vert
 			// 
 			this.button_triangulate_vert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_triangulate_vert.Location = new System.Drawing.Point(1321, 839);
+			this.button_triangulate_vert.Location = new System.Drawing.Point(1321, 862);
 			this.button_triangulate_vert.Margin = new System.Windows.Forms.Padding(1);
 			this.button_triangulate_vert.Name = "button_triangulate_vert";
 			this.button_triangulate_vert.Size = new System.Drawing.Size(143, 21);
@@ -1032,7 +1033,7 @@ namespace OverloadLevelEditor
 			// button_flip_edge
 			// 
 			this.button_flip_edge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_flip_edge.Location = new System.Drawing.Point(1321, 761);
+			this.button_flip_edge.Location = new System.Drawing.Point(1321, 784);
 			this.button_flip_edge.Margin = new System.Windows.Forms.Padding(1);
 			this.button_flip_edge.Name = "button_flip_edge";
 			this.button_flip_edge.Size = new System.Drawing.Size(143, 21);
@@ -1273,7 +1274,7 @@ namespace OverloadLevelEditor
 			// button_poly_flip
 			// 
 			this.button_poly_flip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_poly_flip.Location = new System.Drawing.Point(1321, 908);
+			this.button_poly_flip.Location = new System.Drawing.Point(1321, 931);
 			this.button_poly_flip.Margin = new System.Windows.Forms.Padding(1);
 			this.button_poly_flip.Name = "button_poly_flip";
 			this.button_poly_flip.Size = new System.Drawing.Size(143, 21);
@@ -1462,7 +1463,7 @@ namespace OverloadLevelEditor
 			this.button_split_edge.TabIndex = 134;
 			this.button_split_edge.Text = "Split Edge";
 			this.tool_tip.SetToolTip(this.button_split_edge, "Add an extra vert between the two marked verts (applies to all connected polygons" +
-        ")");
+		")");
 			this.button_split_edge.UseVisualStyleBackColor = true;
 			this.button_split_edge.Click += new System.EventHandler(this.button_split_edge_Click);
 			// 
@@ -1530,7 +1531,7 @@ namespace OverloadLevelEditor
 			// button_bevel_edge
 			// 
 			this.button_bevel_edge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_bevel_edge.Location = new System.Drawing.Point(1320, 649);
+			this.button_bevel_edge.Location = new System.Drawing.Point(1320, 672);
 			this.button_bevel_edge.Margin = new System.Windows.Forms.Padding(1);
 			this.button_bevel_edge.Name = "button_bevel_edge";
 			this.button_bevel_edge.Size = new System.Drawing.Size(143, 21);
@@ -1543,7 +1544,7 @@ namespace OverloadLevelEditor
 			// button_combine_verts
 			// 
 			this.button_combine_verts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_combine_verts.Location = new System.Drawing.Point(1320, 702);
+			this.button_combine_verts.Location = new System.Drawing.Point(1320, 725);
 			this.button_combine_verts.Margin = new System.Windows.Forms.Padding(1);
 			this.button_combine_verts.Name = "button_combine_verts";
 			this.button_combine_verts.Size = new System.Drawing.Size(143, 21);
@@ -1604,7 +1605,7 @@ namespace OverloadLevelEditor
 			// button_subdivide_mesh
 			// 
 			this.button_subdivide_mesh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_subdivide_mesh.Location = new System.Drawing.Point(1321, 738);
+			this.button_subdivide_mesh.Location = new System.Drawing.Point(1321, 761);
 			this.button_subdivide_mesh.Margin = new System.Windows.Forms.Padding(1);
 			this.button_subdivide_mesh.Name = "button_subdivide_mesh";
 			this.button_subdivide_mesh.Size = new System.Drawing.Size(143, 21);
@@ -1617,7 +1618,7 @@ namespace OverloadLevelEditor
 			// button_triangle_marked_nonplanar
 			// 
 			this.button_triangle_marked_nonplanar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_triangle_marked_nonplanar.Location = new System.Drawing.Point(1321, 816);
+			this.button_triangle_marked_nonplanar.Location = new System.Drawing.Point(1321, 839);
 			this.button_triangle_marked_nonplanar.Margin = new System.Windows.Forms.Padding(1);
 			this.button_triangle_marked_nonplanar.Name = "button_triangle_marked_nonplanar";
 			this.button_triangle_marked_nonplanar.Size = new System.Drawing.Size(143, 21);
@@ -1630,7 +1631,7 @@ namespace OverloadLevelEditor
 			// button_triangulate_all_nonplanar
 			// 
 			this.button_triangulate_all_nonplanar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_triangulate_all_nonplanar.Location = new System.Drawing.Point(1321, 793);
+			this.button_triangulate_all_nonplanar.Location = new System.Drawing.Point(1321, 816);
 			this.button_triangulate_all_nonplanar.Margin = new System.Windows.Forms.Padding(1);
 			this.button_triangulate_all_nonplanar.Name = "button_triangulate_all_nonplanar";
 			this.button_triangulate_all_nonplanar.Size = new System.Drawing.Size(143, 21);
@@ -1691,7 +1692,7 @@ namespace OverloadLevelEditor
 			// slider_bevel_width
 			// 
 			this.slider_bevel_width.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.slider_bevel_width.Location = new System.Drawing.Point(1320, 671);
+			this.slider_bevel_width.Location = new System.Drawing.Point(1320, 694);
 			this.slider_bevel_width.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.slider_bevel_width.Name = "slider_bevel_width";
 			this.slider_bevel_width.RightMouseMultiplier = 4;
@@ -1759,6 +1760,19 @@ namespace OverloadLevelEditor
 			this.tool_tip.SetToolTip(this.button_color1, "Color (for lights)");
 			this.button_color1.UseVisualStyleBackColor = false;
 			this.button_color1.Click += new System.EventHandler(this.button_color1_Click);
+			// 
+			// button_bisect_poly
+			// 
+			this.button_bisect_poly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.button_bisect_poly.Location = new System.Drawing.Point(1320, 649);
+			this.button_bisect_poly.Margin = new System.Windows.Forms.Padding(1);
+			this.button_bisect_poly.Name = "button_bisect_poly";
+			this.button_bisect_poly.Size = new System.Drawing.Size(143, 21);
+			this.button_bisect_poly.TabIndex = 139;
+			this.button_bisect_poly.Text = "Bisect Polygon";
+			this.tool_tip.SetToolTip(this.button_bisect_poly, "Split a polygon along the plane that lies on the three marked verts");
+			this.button_bisect_poly.UseVisualStyleBackColor = true;
+			this.button_bisect_poly.Click += new System.EventHandler(this.button_bisect_poly_Click);
 			// 
 			// slider_sizeheight
 			// 
@@ -2412,7 +2426,7 @@ namespace OverloadLevelEditor
 			// outputTextBox
 			// 
 			this.outputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.outputTextBox.Location = new System.Drawing.Point(306, 987);
 			this.outputTextBox.Multiline = true;
 			this.outputTextBox.Name = "outputTextBox";
@@ -2425,6 +2439,7 @@ namespace OverloadLevelEditor
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1466, 1047);
+			this.Controls.Add(this.button_bisect_poly);
 			this.Controls.Add(this.slider_bevel_width);
 			this.Controls.Add(this.button_triangulate_all_nonplanar);
 			this.Controls.Add(this.button_triangle_marked_nonplanar);
@@ -2514,9 +2529,9 @@ namespace OverloadLevelEditor
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
-        #endregion
+		#endregion
 
 		  private System.Windows.Forms.MenuStrip menu_strip;
 		  private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -2694,6 +2709,7 @@ namespace OverloadLevelEditor
 		private SliderLabel slider_bevel_width;
 		private System.Windows.Forms.ToolStripMenuItem autoCopyFaceFlagsToMarkedToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+		private System.Windows.Forms.Button button_bisect_poly;
 	}
 }
 

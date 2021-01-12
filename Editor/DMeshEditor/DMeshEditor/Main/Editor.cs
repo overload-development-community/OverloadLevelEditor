@@ -1191,6 +1191,11 @@ namespace OverloadLevelEditor
 			SplitPolygon();
 		}
 
+		private void button_bisect_poly_Click(object sender, EventArgs e)
+		{
+			BisectPolygon();
+		}
+
 		private void button_duplicate_x_Click(object sender, EventArgs e)
 		{
 			DuplicateMarkedPolysAlongAxis(true);

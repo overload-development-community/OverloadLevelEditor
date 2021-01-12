@@ -702,11 +702,13 @@ namespace OverloadLevelEditor
 				case EditMode.POLY:
 					if (selected_poly > -1 && polygon.Count > selected_poly) {
 						polygon[selected_poly].marked = !polygon[selected_poly].marked;
+						num_marked_polys += polygon[selected_poly].marked ? 1 : -1;
 					}
 					break;
 				case EditMode.VERT:
 					if (selected_vert > -1 && vert_info.Count > selected_vert) {
 						vert_info[selected_vert].marked = !vert_info[selected_vert].marked;
+						num_marked_verts += vert_info[selected_vert].marked ? 1 : -1;
 					}
 					break;
 			}

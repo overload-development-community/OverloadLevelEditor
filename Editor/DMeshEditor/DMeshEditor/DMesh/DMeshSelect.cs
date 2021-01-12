@@ -268,6 +268,7 @@ namespace OverloadLevelEditor
 					break;
 			}
 
+			UpdateMarkedCounts();
 			editor.RefreshGeometry();
 		}
 
