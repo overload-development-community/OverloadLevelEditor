@@ -1182,9 +1182,9 @@ namespace OverloadLevelExport
 		public IGameObjectBroker FindAndLoadPrefabAsset(string prefabName)
 		{
 			// Fixup some badly named prefabs
-			if (string.Compare(prefabName, "entity_item_hunter", true) == 0) {
+			if (prefabName.Equals("entity_item_hunter", StringComparison.InvariantCultureIgnoreCase)) {
 				prefabName = "entity_item_hunter4pack";
-			} else if (string.Compare(prefabName, "entity_item_falcon", true) == 0) {
+			} else if (prefabName.Equals("entity_item_falcon", StringComparison.InvariantCultureIgnoreCase)) {
 				prefabName = "entity_item_falcon4pack";
 			}
 
