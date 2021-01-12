@@ -346,8 +346,10 @@ namespace OverloadLevelEditor
 
 					if (dm.m_tex_gl_id == null || dm.polygon[i].tex_index >= dm.m_tex_gl_id.Count) {
 						// Set nothing, "invalid" texture
+						tex_id = -1;
 						GL.BindTexture(TextureTarget.Texture2D, -1);
 					} else if (dm.polygon[i].tex_index < 0 || dm.m_tex_gl_id[dm.polygon[i].tex_index] < 0) {
+						tex_id = -1;
 						GL.BindTexture(TextureTarget.Texture2D, -1);
 					} else if (tex_id != dm.m_tex_gl_id[dm.polygon[i].tex_index]) {
 						tex_id = dm.m_tex_gl_id[dm.polygon[i].tex_index];
