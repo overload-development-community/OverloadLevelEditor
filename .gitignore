@@ -5,6 +5,7 @@
 *.vspx
 *.sap
 *.suo
+*.sdf
 *.csproj.user
 *.vcxproj.user
 .vs/
