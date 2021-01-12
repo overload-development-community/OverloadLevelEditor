@@ -233,7 +233,8 @@ namespace OverloadLevelExport
 					if (!meshColliderComponent.TryGetPropertyDuringExport<bool>("isTrigger", out isTrigger) || isTrigger == false) {
 						// Not a trigger, get the mesh
 						UnityEngine.Mesh mesh;
-						if (meshColliderComponent.TryGetPropertyDuringExport<UnityEngine.Mesh>("sharedMesh", out mesh)) {
+						if (meshColliderComponent.TryGetPropertyDuringExport<UnityEngine.Mesh>("sharedMesh", out mesh) &&
+							mesh.vertices.Length != 0) {
 							collisionList.Add(new Tuple<int, UnityEngine.Mesh>(go.Layer, mesh));
 							var meshMin = mesh.bounds.min;
 							var meshMax = mesh.bounds.max;
