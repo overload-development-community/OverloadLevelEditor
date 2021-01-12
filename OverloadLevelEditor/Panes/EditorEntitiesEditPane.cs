@@ -314,7 +314,7 @@ namespace OverloadLevelEditor
 
 		private void label_entity_pivot_MouseDown(object sender, MouseEventArgs e)
 		{
-			ActiveDocument.CycleEntityPivot();
+			ActiveDocument.CycleEntityPivot(e.Button == MouseButtons.Right);
 		}
 
 		private void button_entity_marked_face_selected_side_Click(object sender, EventArgs e)
