@@ -51,12 +51,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Debug\</OutputPath>
-	<DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR,DMESH_EDITOR</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
-	<DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;OVERLOAD_LEVEL_EDITOR,DMESH_EDITOR</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CjClutter.ObjLoader.Loader">
@@ -100,6 +100,12 @@
     </Compile>
     <Compile Include="..\..\Common\HSBColor.cs">
       <Link>Utility\HSBColor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\ImportOBJ.cs">
+      <Link>Utility\ImportOBJ.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Common\ObjFile.cs">
+      <Link>Utility\ObjFile.cs</Link>
     </Compile>
     <Compile Include="..\..\Common\UnityStub.cs">
       <Link>Utility\UnityStub.cs</Link>

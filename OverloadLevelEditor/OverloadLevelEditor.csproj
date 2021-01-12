@@ -254,6 +254,12 @@
     <Compile Include="..\Editor\Common\HSBColor.cs">
       <Link>Utility\HSBColor.cs</Link>
     </Compile>
+    <Compile Include="..\Editor\Common\ImportOBJ.cs">
+      <Link>Utility\ImportOBJ.cs</Link>
+    </Compile>
+    <Compile Include="..\Editor\Common\ObjFile.cs">
+      <Link>Utility\ObjFile.cs</Link>
+    </Compile>
     <Compile Include="..\Editor\Common\UnityStub.cs">
       <Link>Utility\UnityStub.cs</Link>
     </Compile>

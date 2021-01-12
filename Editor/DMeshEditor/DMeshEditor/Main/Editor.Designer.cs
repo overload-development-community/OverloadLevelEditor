@@ -129,7 +129,6 @@ namespace OverloadLevelEditor
 			this.button_flip_v = new System.Windows.Forms.Button();
 			this.button_edge_bottom = new System.Windows.Forms.Button();
 			this.button_edge_top = new System.Windows.Forms.Button();
-			this.button_import_replace = new System.Windows.Forms.Button();
 			this.button_import = new System.Windows.Forms.Button();
 			this.button_planarize = new System.Windows.Forms.Button();
 			this.button_create_quad = new System.Windows.Forms.Button();
@@ -1213,17 +1212,6 @@ namespace OverloadLevelEditor
 			this.button_edge_top.UseVisualStyleBackColor = true;
 			this.button_edge_top.Click += new System.EventHandler(this.button_edge_top_Click);
 			// 
-			// button_import_replace
-			// 
-			this.button_import_replace.Location = new System.Drawing.Point(3, 150);
-			this.button_import_replace.Margin = new System.Windows.Forms.Padding(1);
-			this.button_import_replace.Name = "button_import_replace";
-			this.button_import_replace.Size = new System.Drawing.Size(143, 21);
-			this.button_import_replace.TabIndex = 95;
-			this.button_import_replace.Text = "Import OBJ - Replace";
-			this.tool_tip.SetToolTip(this.button_import_replace, "Import an OBJ file to replace the current decal geometry");
-			this.button_import_replace.UseVisualStyleBackColor = true;
-			// 
 			// button_import
 			// 
 			this.button_import.Location = new System.Drawing.Point(3, 127);
@@ -1231,9 +1219,10 @@ namespace OverloadLevelEditor
 			this.button_import.Name = "button_import";
 			this.button_import.Size = new System.Drawing.Size(143, 21);
 			this.button_import.TabIndex = 94;
-			this.button_import.Text = "Import OBJ - New";
+			this.button_import.Text = "Import OBJ";
 			this.tool_tip.SetToolTip(this.button_import, "Import an OBJ file as a new decal");
 			this.button_import.UseVisualStyleBackColor = true;
+			this.button_import.Click += new System.EventHandler(this.button_import_Click);
 			// 
 			// button_planarize
 			// 
@@ -2493,7 +2482,6 @@ namespace OverloadLevelEditor
 			this.Controls.Add(this.label_scalemode);
 			this.Controls.Add(this.label_pivotmode);
 			this.Controls.Add(this.button_planarize);
-			this.Controls.Add(this.button_import_replace);
 			this.Controls.Add(this.button_import);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.slider_coplanar_angle);
@@ -2600,7 +2588,6 @@ namespace OverloadLevelEditor
 		  private System.Windows.Forms.Button button_flip_v;
 		  private System.Windows.Forms.Button button_edge_bottom;
 		  private System.Windows.Forms.Button button_edge_top;
-		  private System.Windows.Forms.Button button_import_replace;
 		  private System.Windows.Forms.Button button_import;
 		  private System.Windows.Forms.Button button_planarize;
 		  private System.Windows.Forms.Label label_pivotmode;

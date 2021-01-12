@@ -412,7 +412,9 @@ namespace OverloadLevelEditor
 					return;
 				}
 
-				m_active_dmesh = new DMesh(replace ? m_active_dmesh.name : "");
+				string name = m_active_dmesh.name;
+				if (!replace)
+					m_active_dmesh = new DMesh("");
 
 				bool saved = ImportOBJToDecal(od.FileName);
 				if (!saved) {
@@ -421,9 +423,12 @@ namespace OverloadLevelEditor
 				}
 
 				if (replace) {
-					m_dmesh[m_cur_dmesh] = m_active_dmesh;
+					m_active_dmesh.name = name;
+					SaveDecalMesh(m_active_dmesh);
+					editor.RefreshAllGMeshes();
+					editor.Refresh();
 				} else { 
-					string name = InputBox.GetInput("Import Decal Mesh", "Enter a name for this decal (must be valid filename)", "");
+					name = InputBox.GetInput("Import Decal Mesh", "Enter a name for this decal (must be valid filename)", "");
 					if (name == null) {
 						listbox.SetSelected(old_active_dmesh_index, true);
 						return;

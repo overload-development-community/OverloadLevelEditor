@@ -1316,5 +1316,35 @@ namespace OverloadLevelEditor
 			auto_copy_face_flags = !auto_copy_face_flags;
 			autoCopyFaceFlagsToMarkedToolStripMenuItem.Checked = auto_copy_face_flags;
 		}
+
+		private void button_import_Click(object sender, EventArgs e)
+		{
+			if (m_dmesh.dirty) {
+				DialogResult dr = MessageBox.Show("DMesh has changed.  Save it before importing OBJ file?", "Save DMesh?", MessageBoxButtons.YesNoCancel);
+				if (dr == DialogResult.Yes) {
+					saveToolStripMenuItem_Click(this, e);
+				} else if (dr == DialogResult.Cancel) {
+					// Nevermind!
+					return;
+				}
+			}
+
+			using (OpenFileDialog od = new OpenFileDialog()) {
+				od.AddExtension = true;
+				od.CheckFileExists = true;
+				od.CheckPathExists = true;
+				od.DefaultExt = ".obj";
+				od.Filter = "OBJ mesh files (*.obj) | *.obj";
+				od.Multiselect = false;
+				od.Title = "Import an OBJ mesh file";
+
+				var res = od.ShowDialog();
+				if (res != DialogResult.OK)
+					return;
+				ImportOBJ(m_dmesh, od.FileName);
+
+				RefreshGeometry();
+			}
+		}
 	}
 }

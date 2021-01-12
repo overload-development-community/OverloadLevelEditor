@@ -1016,5 +1016,30 @@ namespace OverloadLevelEditor
 
 			InitColors();
 		}
+
+		public bool ImportOBJ(DMesh dm, string path_to_file)
+		{
+			dm.Init(this);
+			try {
+				if (!OverloadLevelEditor.ImportOBJ.ImportOBJToDMesh(dm, path_to_file, false, this, tm_decal))
+                    return false;
+
+				dm.UpdateGLTextures(tm_decal);
+
+				dm.dirty = false;
+
+				if (!dm.WasConverted()) {
+					m_dmesh.ConvertTrisToPolysRaw();
+					dm.dirty = true;
+				}
+				UpdateOptionLabels();
+
+				return true;
+			}
+			catch (Exception ex) {
+				Utility.DebugPopup("Failed to load OBJ: " + ex.Message, "Error");
+				return false;
+			}
+		}
 	}
 }
