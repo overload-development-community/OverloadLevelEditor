@@ -15,6 +15,8 @@ COPYRIGHT 2015-2020 REVIVAL PRODUCTIONS, LLC.  ALL RIGHTS RESERVED.
 using UnityEngine;
 #else
 using System.ComponentModel;
+using System.Drawing.Design;
+using System.Drawing;
 #endif
 using System;
 
@@ -557,11 +559,10 @@ namespace Overload
 #if !(UNITY_STANDALONE || UNITY_PS4 || UNITY_XBOXONE)
 		public System.Drawing.Color color = System.Drawing.Color.White;
 
-		[ReadOnly(true)]
-		public System.Drawing.Color BaseColor
+		public EditColor BaseColor
 		{
-			get { return color; }
-			set { color = value; }
+			get { return new EditColor() {  Color = color }; }
+			set { color = value.Color; UpdateHSB(); }
 		}
 #endif
 
@@ -569,6 +570,16 @@ namespace Overload
 		{
 #if OVERLOAD_LEVEL_EDITOR
 			color = HSBColor.ConvertToSystemColor(c_hue, c_sat, c_bri);
+#endif
+		}
+
+		public void UpdateHSB()
+		{
+#if OVERLOAD_LEVEL_EDITOR
+			var hsb = new HSBColor(color);
+			c_hue = hsb.h;
+			c_sat = hsb.s;
+			c_bri = hsb.b;
 #endif
 		}
 	}
@@ -658,6 +669,54 @@ namespace Overload
 		public bool ed_invulnerable = false;
 	}
 
+#if OVERLOAD_LEVEL_EDITOR
+	class ColorEditor : UITypeEditor
+	{
+		public static int[] CustomColors;
 
+		public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+		{
+			return UITypeEditorEditStyle.Modal;
+		}
+
+		public override object EditValue(ITypeDescriptorContext context,
+			IServiceProvider provider, object value)
+		{
+			var dlg = new System.Windows.Forms.ColorDialog();
+			dlg.FullOpen = true;
+			dlg.Color = ((EditColor)value).Color;
+			dlg.CustomColors = CustomColors;
+			var res = dlg.ShowDialog();
+			CustomColors = dlg.CustomColors;
+			if (res == System.Windows.Forms.DialogResult.OK)
+				return new EditColor() { Color = dlg.Color };
+			return value;
+		}
+
+		public override void PaintValue(System.Drawing.Design.PaintValueEventArgs e)
+		{
+			e.Graphics.FillRectangle(new SolidBrush(((EditColor)e.Value).Color), e.Bounds);
+			return;
+		}
+
+		public override bool GetPaintValueSupported(System.ComponentModel.ITypeDescriptorContext context)
+		{
+			return true;
+		}
+	}
+
+	[Editor(typeof(ColorEditor), typeof(UITypeEditor))]
+	public struct EditColor
+	{
+		public System.Drawing.Color Color;
+
+		public override string ToString()
+		{
+			var rgb = Color.ToArgb();
+			int r = (rgb >> 16) & 255, g = (rgb >> 8) & 255, b = rgb & 255;
+			return r.ToString("x2") + g.ToString("x2") + b.ToString("x2");
+		}
+	}
+#endif
 
 }
