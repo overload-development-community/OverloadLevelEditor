@@ -520,10 +520,7 @@ namespace OverloadLevelEditor
 
 		public void UpdateTextureLabels()
 		{
-			/*Side s = m_level.GetSelectedSide();
-			if (s != null) {
-				label_texture_name.Text = s.tex_name;
-			}*/
+			label_texture_name.Text = m_dmesh.GetSelectedPolyTexture();
 		}
 
 		public void UpdateCountLabels()
