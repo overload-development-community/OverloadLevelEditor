@@ -46,5 +46,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")] // ONLY CHANGE THIS VERSION IF THE API HAS CHANGED -- WHEN YOU CHANGE THIS VERSION IT WILL BREAK APPS THAT REFERENCE (This is the only version number .NET uses)
-[assembly: AssemblyFileVersion("1.0.1.0")] // This is used to uniquely identify a specific build of this assembly (you might encode the Perforce changelist into this if you were inclined)
-[assembly: AssemblyInformationalVersion("1.0.1.0")] // !!! THIS IS THE VERSION THAT WINDOWS USES TO DISPLAY THE VERSION INFO (of the entire product) - like from file Explorer - this is the "ProductVersion"
+[assembly: AssemblyFileVersion("1.1.0.0")] // This is used to uniquely identify a specific build of this assembly (you might encode the Perforce changelist into this if you were inclined)
+[assembly: AssemblyInformationalVersion("1.1.0.0")] // !!! THIS IS THE VERSION THAT WINDOWS USES TO DISPLAY THE VERSION INFO (of the entire product) - like from file Explorer - this is the "ProductVersion"
