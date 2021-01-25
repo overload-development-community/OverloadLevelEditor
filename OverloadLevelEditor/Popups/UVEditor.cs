@@ -308,7 +308,7 @@ namespace OverloadLevelEditor
 
 		private void UVEditor_LocationChanged(object sender, EventArgs e)
 		{
-			if (Visible)
+			if (Visible && WindowState == FormWindowState.Normal)
 			{
 				editor.m_uv_editor_loc = this.Location;
 			}

@@ -471,7 +471,7 @@ namespace OverloadLevelEditor
 			UserPrefs.SetPoint("texture_set_list_loc", m_texture_set_list_loc);
 			UserPrefs.SetPoint("texture_set_list_sz", (Point)texture_set_list.Size);
 			UserPrefs.SetPoint("uv_editor_loc", m_uv_editor_loc);
-			UserPrefs.SetPoint("uv_editor_sz", (Point)uv_editor.Size);
+			UserPrefs.SetPoint("uv_editor_sz", (Point)uv_editor.RestoreBounds.Size);
 
 			UserPrefs.SetInt("mm_edit_type", (int)m_mm_edit_type);
 			UserPrefs.SetInt("mm_op_mode", (int)m_mm_op_mode);
