@@ -206,8 +206,10 @@ namespace OverloadLevelEditor
 		{
 			var editor = ActiveDocument;
 			var level = ActiveLevel;
+			var oldPos = level.GetSelectedEntity().position;
 
-			string coords_text = InputBox.GetInput("Entity Coords", "Enter new coodtinates for this enity", "");
+			string coords_text = InputBox.GetInput("Entity Coords", "Enter new coordinates for this entity",
+				$"{oldPos.X},{oldPos.Y},{oldPos.Z}");
 			if (coords_text == null) {
 				return;
 			}
