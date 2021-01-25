@@ -69,12 +69,12 @@ namespace OverloadLevelEditor
 
 		public List<int> m_tex_gl_id;
 		
-		public void UpdateGLTextures(TextureManager tm)
+		public void UpdateGLTextures(TextureManager tm, TextureManager backup_tm = null)
 		{
 			for (int i = 0; i < tex_name.Count; i++) {
 				m_tex_gl_id[i] = tm.FindTextureIDByName(tex_name[i]);
-				if (m_tex_gl_id[i] == -1) {
-					m_tex_gl_id[i] = tm.FindTextureIDByName("_default");
+				if (m_tex_gl_id[i] == -1 && backup_tm != null) {
+					m_tex_gl_id[i] = backup_tm.FindTextureIDByName(tex_name[i]);
 				}
 			}
 		}

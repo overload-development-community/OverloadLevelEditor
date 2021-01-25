@@ -546,7 +546,7 @@ namespace OverloadLevelEditor
             {
 				return;
             }
-			m_active_dmesh.UpdateGLTextures(tex_manager);
+			m_active_dmesh.UpdateGLTextures(tex_manager, editor.tm_level);
 			BuildDecalMesh(m_active_dmesh);
 			m_selected_face = -1;
 			BuildDecalSelected(m_active_dmesh, m_selected_face);

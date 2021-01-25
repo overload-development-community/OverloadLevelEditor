@@ -58,7 +58,7 @@ namespace OverloadLevelEditor
 				// Load the decal into memory
 				m_active_dmesh = new DMesh(mesh_name);
 				LoadDecalMesh(m_active_dmesh, file);
-				m_active_dmesh.UpdateGLTextures(tex_manager);
+				m_active_dmesh.UpdateGLTextures(tex_manager, editor.tm_level);
 				m_dmesh.Add(m_active_dmesh);
 			}
 
@@ -145,7 +145,7 @@ namespace OverloadLevelEditor
 			GL.PushMatrix();
 			GL.DeleteLists(GL_DECAL, 1);
 			GL.NewList(GL_DECAL, ListMode.Compile);
-			int tex_id = -1;
+			int tex_id = -2; // start different from missing texture value -1
 			
 			{
 				GL.Begin(PrimitiveType.Triangles);
@@ -157,9 +157,10 @@ namespace OverloadLevelEditor
 						continue;
 					}
 
-					if (tex_id != dm.m_tex_gl_id[dm.triangle[i].tex_index]) {
+					int tri_tex_id = dm.triangle[i].tex_index == -1 ? -1 : dm.m_tex_gl_id[dm.triangle[i].tex_index];
+					if (tex_id != tri_tex_id) {
 						GL.End();
-						tex_id = dm.m_tex_gl_id[dm.triangle[i].tex_index];
+						tex_id = tri_tex_id;
 						GL.BindTexture(TextureTarget.Texture2D, tex_id);
 						GL.Begin(PrimitiveType.Triangles);
 					}
