@@ -1402,6 +1402,7 @@ namespace OverloadLevelEditor
 		public int CheckLevelValidity(bool mark_bad_segements = false)
 		{
 			int error_count = 0;
+			bool saved_for_undo = false;
 
 			if (mark_bad_segements) {
 				ClearAllMarked();
@@ -1422,6 +1423,16 @@ namespace OverloadLevelEditor
 
 						if (seg.side[j].FindAdjacentSideSameSegment(k) == null) {
 							AddOutputText("Could not find the adjacent side for a segment " + seg.num + " side " + j);
+							error_count++;
+						}
+
+						if (float.IsNaN(seg.side[j].uv[k].X) || float.IsNaN(seg.side[j].uv[k].Y)) {
+							AddOutputText("Bad UV data for segment " + seg.num + " side " + j + ". Reset to default");
+							if (!saved_for_undo) {
+								SaveStateForUndo("Check Level Validity");
+								saved_for_undo = true;
+							}
+							seg.side[j].DefaultAlignment();
 							error_count++;
 						}
 					}
