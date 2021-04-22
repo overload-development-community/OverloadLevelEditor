@@ -6,7 +6,7 @@ Source code to Overload Level Editor (OLE) and Decal Mesh Editor (DMeshEditor)
 
 #### How to run
 
-- Download and extract the latest version (https://github.com/overload-development-community/OverloadLevelEditor/releases/download/v1.1.0.0/OverloadLevelEditor-1.1.0.0.zip) to a local folder.
+- Download and extract the latest version (https://github.com/overload-development-community/OverloadLevelEditor/releases/download/v1.1.3.0/OverloadLevelEditor-1.1.3.0.zip) to a local folder.
 
 - Run `OverloadLevelEditor.exe -datadir F:\SteamLibrary\steamapps\common\Overload\OverloadLevelEditor` (change path to your installed OverloadLevelEditor folder)
 
