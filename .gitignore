@@ -25,6 +25,13 @@ EditorPhysics/Debug/
 EditorPhysics/x64/
 /x64/
 
+AssetStudio/AssetStudio/bin/
+AssetStudio/AssetStudio/obj/
+AssetStudio/Texture2DDecoderNative/bin/
+AssetStudio/Texture2DDecoderNative/obj/
+AssetStudio/Texture2DDecoderNative/x64/
+AssetStudio/Texture2DDecoderWrapper/bin/
+AssetStudio/Texture2DDecoderWrapper/obj/
 
 !/3rdParty/
 

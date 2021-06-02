@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1321
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverloadLevelEditor", "OverloadLevelEditor\OverloadLevelEditor.csproj", "{D47B0DAE-4CFB-41EE-AD88-5892BD94EA91}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -18,6 +18,15 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditorPhysics", "EditorPhysics\EditorPhysics.vcxproj", "{2BA636A7-05D2-49E8-BAF0-BC888B2947FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMeshEditor", "Editor\DMeshEditor\DMeshEditor\DMeshEditor.csproj", "{E386B7ED-C1EB-408A-9AA1-AD7C1E8CC3EC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Texture2DDecoderNative", "AssetStudio\Texture2DDecoderNative\Texture2DDecoderNative.vcxproj", "{29356642-C46E-4144-83D8-22DC09D0D7FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Texture2DDecoderWrapper", "AssetStudio\Texture2DDecoderWrapper\Texture2DDecoderWrapper.csproj", "{2AFCE830-B463-49B3-A026-877E5EAFC0A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{29356642-C46E-4144-83D8-22DC09D0D7FD} = {29356642-C46E-4144-83D8-22DC09D0D7FD}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetStudio", "AssetStudio\AssetStudio\AssetStudio.csproj", "{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,8 +109,47 @@ Global
 		{E386B7ED-C1EB-408A-9AA1-AD7C1E8CC3EC}.Release|x64.ActiveCfg = Release|x64
 		{E386B7ED-C1EB-408A-9AA1-AD7C1E8CC3EC}.Release|x86.ActiveCfg = Release|x86
 		{E386B7ED-C1EB-408A-9AA1-AD7C1E8CC3EC}.Release|x86.Build.0 = Release|x86
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Debug|x64.ActiveCfg = Debug|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Debug|x64.Build.0 = Debug|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Debug|x86.ActiveCfg = Debug|Win32
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Debug|x86.Build.0 = Debug|Win32
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.PublicRelease|x64.ActiveCfg = Release|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.PublicRelease|x64.Build.0 = Release|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.PublicRelease|x86.ActiveCfg = Release|Win32
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.PublicRelease|x86.Build.0 = Release|Win32
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Release|x64.ActiveCfg = Release|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Release|x64.Build.0 = Release|x64
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Release|x86.ActiveCfg = Release|Win32
+		{29356642-C46E-4144-83D8-22DC09D0D7FD}.Release|x86.Build.0 = Release|Win32
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Debug|x64.Build.0 = Debug|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Debug|x86.Build.0 = Debug|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.PublicRelease|x64.ActiveCfg = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.PublicRelease|x64.Build.0 = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.PublicRelease|x86.ActiveCfg = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.PublicRelease|x86.Build.0 = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Release|x64.ActiveCfg = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Release|x64.Build.0 = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Release|x86.ActiveCfg = Release|Any CPU
+		{2AFCE830-B463-49B3-A026-877E5EAFC0A4}.Release|x86.Build.0 = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Debug|x64.Build.0 = Debug|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Debug|x86.Build.0 = Debug|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.PublicRelease|x64.ActiveCfg = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.PublicRelease|x64.Build.0 = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.PublicRelease|x86.ActiveCfg = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.PublicRelease|x86.Build.0 = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Release|x64.ActiveCfg = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Release|x64.Build.0 = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7662F8C2-7BFD-442E-A948-A43B4F7EB06E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F5591DAC-2AB5-4728-AA72-CD180DA353E6}
 	EndGlobalSection
 EndGlobal

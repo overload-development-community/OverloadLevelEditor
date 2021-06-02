@@ -22,6 +22,7 @@ namespace OverloadLevelEditor
     static class Program
     {
         public static string m_datadir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        public static string m_gamedir = null;
 
         /// <summary>
         /// The main entry point for the application.
@@ -30,7 +31,8 @@ namespace OverloadLevelEditor
         static void Main(string[] args)
         {
             OptionSet options = new OptionSet()
-                .Add("datadir=", "Specifies the working folder for file operations", option => m_datadir = option);
+                .Add("datadir=", "Specifies the working folder for file operations", option => m_datadir = option)
+                .Add("gamedir=", "Specifies the Overload folder (with Overload.exe) for rendering game models", option => m_gamedir = option);
 
             try
             {
