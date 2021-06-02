@@ -460,9 +460,14 @@ namespace OverloadLevelEditor
 			for (int i = 0; i < Level.MAX_ENTITIES; i++) {
 				if (editor.m_level.entity[i].Visible) {
 					e = editor.m_level.entity[i];
+
+					if (BuildAssetModels.GetEntityList(e.Type, e.SubType, (e.entity_props as Overload.EntityPropsProp)?.Index) != -1)
+						continue;
+
 					GL.PushMatrix();
 					GL.Translate(e.position);
 					GL.MultMatrix(ref e.m_rotation);
+
 					GL.Color4(GetEntityTypeColor(e.Type));
 					switch (e.Type) {
 						case EntityType.ENEMY:
@@ -546,6 +551,22 @@ namespace OverloadLevelEditor
 				SetDiffuseObjectColor(C_base);
 				GL.CallList(GL_BASE);
 				GL.CallList(GL_GMESH);
+
+				for (int i = 0; i < Level.MAX_ENTITIES; i++) {
+					if (editor.m_level.entity[i].Visible) {
+						e = editor.m_level.entity[i];
+
+						var list = BuildAssetModels.GetEntityList(e.Type, e.SubType, (e.entity_props as Overload.EntityPropsProp)?.Index);
+						if (list == -1)
+							continue;
+
+						GL.PushMatrix();
+						GL.Translate(e.position);
+						GL.MultMatrix(ref e.m_rotation);
+						GL.CallList(list);
+						GL.PopMatrix();
+					}
+				}
 			}
 
 			//Draw chunk data

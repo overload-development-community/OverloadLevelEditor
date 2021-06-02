@@ -212,6 +212,8 @@ namespace OverloadLevelEditor
 					RestoreDefaultLayout();
 				}
 			}
+
+			BuildAssetModels.Prepare();
 		}
 
 		private void Editor_FormClosing(object sender, FormClosingEventArgs e)
