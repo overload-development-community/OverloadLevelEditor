@@ -83,6 +83,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>OLE_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CjClutter.ObjLoader.Loader">
       <HintPath>..\3rdParty\CjClutter.ObjLoader.Loader.dll</HintPath>
@@ -519,6 +522,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Popups\TextureList.resx">
       <DependentUpon>TextureList.cs</DependentUpon>
@@ -569,6 +573,7 @@
   <ItemGroup>
     <Compile Include="Utility\DefaultLayout.cs" />
     <Content Include="license.txt" />
+    <Content Include="OLE_icon.ico" />
     <Content Include="Utility\LukeTodo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
