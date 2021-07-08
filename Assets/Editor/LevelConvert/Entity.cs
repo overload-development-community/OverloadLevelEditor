@@ -179,8 +179,18 @@ namespace OverloadLevelEditor
 		FACTORY1,
 		FACTORYSECRET1,
 		INDSECRET1,
+        
+        USERDOOR1,
+        USERDOOR2,
+        USERDOOR3,
+        USERDOOR4,
+        USERDOOR5,
+        USERDOOR6,
+        USERDOOR7,
+        USERDOOR8,
+        USERDOOR9,
 
-		NUM,
+        NUM,
 	}
 
 	public enum ScriptSubType
@@ -219,7 +229,6 @@ namespace OverloadLevelEditor
 		OBJECTIVE_MESSAGE,
 		HOLOGUIDE_POSITION,
 		DISABLE_OCCLUSION,
-
 		NUM,
 	}
 
