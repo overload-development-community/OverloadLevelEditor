@@ -73,7 +73,7 @@ namespace OverloadLevelEditor
 
 		public void BuildGridGeometry(int lines, int spacing)
 		{
-			lines = (200 / spacing);
+			lines = (320 / spacing); // size should be multiple of max spacing (32)
 			GL.PushMatrix();
 			GL.DeleteLists(GL_GRID, 1);
 			GL.NewList(GL_GRID, ListMode.Compile);
