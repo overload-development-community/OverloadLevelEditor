@@ -214,8 +214,8 @@ namespace OverloadLevelEditor
 				case DecalAlign.EDGE_DOWN:
 				case DecalAlign.EDGE_LEFT:
 				case DecalAlign.EDGE_UP:
-					m_base_rvec = s.FindEdgeDir((int)d.align - (int)DecalAlign.EDGE_RIGHT);
-					m_base_uvec = Vector3.Cross(m_base_rvec, m_base_normal);
+					m_base_rvec = -s.FindEdgeDir((int)d.align - (int)DecalAlign.EDGE_RIGHT);
+					m_base_uvec = Vector3.Cross(m_base_normal, m_base_rvec);
 					break;
 			}
 
@@ -266,6 +266,21 @@ namespace OverloadLevelEditor
 			int repeat_u = ( d.repeat_u > 0 ? d.repeat_u : max_repeats );
 			int repeat_v = ( d.repeat_v > 0 ? d.repeat_v : max_repeats );
 
+			int offset_u = d.offset_u;
+			switch(d.align)
+            {
+				case DecalAlign.EDGE_RIGHT:
+				case DecalAlign.EDGE_DOWN:
+				case DecalAlign.EDGE_UP:
+				case DecalAlign.EDGE_LEFT:
+					// COMPATIBILITY: Due to a bug Offset U was effectively reversed in the original 1.0.1.0 release
+					//                For backwards compatibility, retain this behaviour.
+					offset_u = -offset_u;
+					break;
+				default:
+					break;
+            }
+
 			// Get the implied offset based on the repeats
 			int implied_offset_u = CalculateImpiedOffset( d.repeat_u, repeat_u );
 			int implied_offset_v = CalculateImpiedOffset( d.repeat_v, repeat_v );
@@ -286,7 +301,7 @@ namespace OverloadLevelEditor
 					// Before adding, must do WHOLE clipping (can't do it after because we don't have the data then)
 
 					// Create a CQuad that covers the outline of the expected area
-					Vector3[] v = CreateGhostQuad( m_base_pos + m_base_rvec * ( implied_offset_u - d.offset_u + i * 4 ) + m_base_uvec * ( implied_offset_v + d.offset_v + j * 4 ), m_base_rot );
+					Vector3[] v = CreateGhostQuad( m_base_pos + m_base_rvec * ( implied_offset_u - offset_u + i * 4 ) + m_base_uvec * ( implied_offset_v + d.offset_v + j * 4 ), m_base_rot );
 					CTriangle ct = new CTriangle( v );
 
 					bool clip = false;
@@ -301,7 +316,7 @@ namespace OverloadLevelEditor
 					}
 
 					if( !clip ) {
-						Vector3 offset = m_base_rvec * ( implied_offset_u - d.offset_u + i * 4 ) + m_base_uvec * ( implied_offset_v + d.offset_v + j * 4 );
+						Vector3 offset = m_base_rvec * ( implied_offset_u - offset_u + i * 4 ) + m_base_uvec * ( implied_offset_v + d.offset_v + j * 4 );
 						Vector3 gcenter = m_base_pos + offset;
 						AddGeometry( temp_dm, gcenter );
 						AddLights( temp_dm, gcenter );
