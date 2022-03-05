@@ -144,6 +144,7 @@ namespace OverloadLevelEditor
 			public bool m_alien_lava = false;
 			public int m_custom_count = 0;
 			public CustomLevelInfoObjective m_objective = CustomLevelInfoObjective.NORMAL;
+			public bool m_include_default_reflection_probes = true;
 
 			public void Serialize(JObject root)
 			{
@@ -152,6 +153,7 @@ namespace OverloadLevelEditor
 				root["alien_lava"] = m_alien_lava;
 				root["custom_count"] = m_custom_count;
 				root["objective"] = m_objective.ToString();
+				root["reflection_probes"] = m_include_default_reflection_probes ? "Default" : "None";
 			}
 
 			public void Deserialize(JObject root)
@@ -161,6 +163,7 @@ namespace OverloadLevelEditor
 				this.m_alien_lava = root["alien_lava"].GetBool(false);
 				this.m_custom_count = root["custom_count"].GetInt(0);
 				this.m_objective = (CustomLevelInfoObjective)Enum.Parse(typeof(CustomLevelInfoObjective), root["objective"].GetString("NORMAL"));
+				this.m_include_default_reflection_probes = root["reflection_probes"].GetString("Default") == "Default";
 			}
 		}
 

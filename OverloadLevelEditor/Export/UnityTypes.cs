@@ -71,17 +71,19 @@ namespace UnityEngine
 	{
 		public enum ReflectionProbeMode
 		{
-			Baked
+			Baked = 0,
+			Realtime = 1,
 		}
 
 		public enum ReflectionProbeRefreshMode
 		{
-			ViaScripting
+			OnAwake = 0,
+			ViaScripting = 2
 		}
 
 		public enum ReflectionProbeClearFlags
 		{
-			SolidColor
+			SolidColor = 2
 		}
 	}
 

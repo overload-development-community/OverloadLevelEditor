@@ -649,7 +649,15 @@ namespace OverloadLevelEditor
 								// Draw the trigger links if selected
 								CreateLinkDiamonds(e);
 
-								if (e.SubType < (int)TriggerSubType.SPHERE) {
+								if(e.SubType == (int)TriggerSubType.REFLECTION_PROBE)
+								{
+									GL.PushMatrix();
+									// Reflection probes are always axis-aligned.
+									var unrotate = Matrix4.Invert(e.rotation);
+									GL.MultMatrix(ref unrotate);
+									CreateLineBox(((Overload.EntityPropsTrigger)e.entity_props).size * 0.5f);
+									GL.PopMatrix();
+								} else if (e.SubType < (int)TriggerSubType.SPHERE) {
 									CreateLineBox(((Overload.EntityPropsTrigger)e.entity_props).size * 0.5f);
 								} else {
 									CreateLineSphere(((Overload.EntityPropsTrigger)e.entity_props).size.X);

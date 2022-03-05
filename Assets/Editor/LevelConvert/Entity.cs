@@ -245,6 +245,7 @@ namespace OverloadLevelEditor
 		SPHERE,
 		SPHERE_EXIT,
 		SPHERE_STAY,
+		REFLECTION_PROBE,
 		
 		NUM,
 	}

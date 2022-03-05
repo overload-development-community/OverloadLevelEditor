@@ -2173,18 +2173,43 @@ public partial class OverloadLevelConverter
 				containerObject.AddComponent( "RPRefresher" );
 			}
 
-			if (chunkToLevelDocsegmentIndices == null) {
+			// TODO 
+			// probe metadata is used to turn probes on and off as they go in and out of view
+			// ... but probes refresh every time this happens, causing stuttering.
+			bool addProbesToMetadata = false; //containerObject.ActiveInHierarchy;
+
+			// find and add user created reflection probes
+			foreach(var ent in overloadLevel.EnumerateAliveEntities(OverloadLevelEditor.EntityType.TRIGGER))
+			{
+				if(ent.SubType != (int)OverloadLevelEditor.TriggerSubType.REFLECTION_PROBE) { continue; }
+
+				var entProps = (Overload.EntityPropsTrigger)ent.GetEntityProps();
+				IComponentBroker reflProbeComp = GenerateReflectionProbe(scene, containerObject,
+					string.Format("refl_probe_u{0}", ent.num.ToString("D4")), entProps.size.ToUnity(), ent.position.ToUnity(), Vector3.zero, (int)entProps.repeat_delay);
+
+				if (addProbesToMetadata)
+				{
+					// Add to the metadata
+					probeMetadata.Add(new SegmentReflectionProbeInfo()
+					{
+						ProbeObject = reflProbeComp.ownerGameObject,
+						ProbeType = SegmentReflectionProbeType.ConverterGenerated,
+						SegmentIndex = ent.m_segnum,
+					});
+				}
+			}
+
+			if (!overloadLevel.custom_level_info.m_include_default_reflection_probes || chunkToLevelDocsegmentIndices == null)
+			{
 				// No auto probes to place...
 				return probeMetadata.ToArray();
 			}
 
-			bool addProbesToMetadata = containerObject.ActiveInHierarchy;
-
 			// We are adding a reflection probe per chunk. Go through each chunk and find
 			// the best (hopefully) suitable place for the probe. This is all just a shot
 			// in the dark and probably error prone
-			foreach (var kvp in chunkToLevelDocsegmentIndices) {
-
+			foreach (var kvp in chunkToLevelDocsegmentIndices)
+			{
 				var chunkNum = kvp.Key;
 				var segmentIndices = kvp.Value;
 				var segmentsInChunk = segmentIndices
@@ -2200,7 +2225,8 @@ public partial class OverloadLevelConverter
 					int numVertsToAverage = 0;
 					foreach (var vertPos in segmentsInChunk
 						.SelectMany(seg => seg.Value.vert)
-						.Select(vert_idx => overloadLevel.vertex[vert_idx].position.ToUnity())) {
+						.Select(vert_idx => overloadLevel.vertex[vert_idx].position.ToUnity()))
+					{
 						chunkCentroidPosition += vertPos;
 						++numVertsToAverage;
 
@@ -2221,13 +2247,14 @@ public partial class OverloadLevelConverter
 				{
 					float bestSegmentCentroidDist = hugeFloat;
 					foreach (var segmentCentroidPositionKVP in segmentsInChunk
-						.Select(segKVP => new { SegIndex = segKVP.Key, Verts = segKVP.Value.vert.Select(vert_idx => overloadLevel.vertex[vert_idx].position.ToUnity()).ToArray() } )
+						.Select(segKVP => new { SegIndex = segKVP.Key, Verts = segKVP.Value.vert.Select(vert_idx => overloadLevel.vertex[vert_idx].position.ToUnity()).ToArray() })
 						.Select(segVertsKVP =>
 						{
 							// Calculate the centroid for the segment verts
 							Vector3 centroid = Vector3.zero;
 							int numVerts = 0;
-							foreach (var vert_pos in segVertsKVP.Verts) {
+							foreach (var vert_pos in segVertsKVP.Verts)
+							{
 								centroid += vert_pos;
 								++numVerts;
 							}
@@ -2237,11 +2264,13 @@ public partial class OverloadLevelConverter
 							centroid.y *= scale;
 							centroid.z *= scale;
 							return new { SegIndex = segVertsKVP.SegIndex, Centroid = centroid };
-						})) {
+						}))
+					{
 						// given this segment centroid, find the distance to the chunk centroid
 						// if it is closer, then use this
 						float distToChunkCentroid = Vector3.Distance(segmentCentroidPositionKVP.Centroid, chunkCentroidPosition);
-						if (distToChunkCentroid < bestSegmentCentroidDist) {
+						if (distToChunkCentroid < bestSegmentCentroidDist)
+						{
 							// This is a better segment center
 							bestSegmentIndex = segmentCentroidPositionKVP.SegIndex;
 							bestSegmentCentroid = segmentCentroidPositionKVP.Centroid;
@@ -2252,46 +2281,57 @@ public partial class OverloadLevelConverter
 
 				// Create the reflection probe
 				Vector3 chunkBoundsCenter = (chunkMaxPos + chunkMinPos) * 0.5f;
-				var reflectionGO = scene.CreateRootGameObject(string.Format("refl_probe{0}", chunkNum.ToString("D4")));
-				reflectionGO.Transform.Position = bestSegmentCentroid;
-				reflectionGO.Transform.Parent = containerObject.Transform;
+				IComponentBroker reflProbeComp = GenerateReflectionProbe(scene, containerObject,
+					string.Format("refl_probe{0}", chunkNum.ToString("D4")), chunkMaxPos - chunkMinPos + Vector3.one * 2f, bestSegmentCentroid, chunkBoundsCenter - bestSegmentCentroid, 1);
 
-                int cullingMask = -1; // default enable all layers?
-                cullingMask ^= (1 << (int)Overload.UnityObjectLayers.ENEMY_MESH); // Ignore enemies when rendering
-                cullingMask ^= (1 << (int)Overload.UnityObjectLayers.ITEMS); // Ignore items when rendering
-                cullingMask ^= (1 << (int)Overload.UnityObjectLayers.RP_IGNORE); // Ignore items when rendering
-
-                var reflProbeComp = reflectionGO.AddComponent( "ReflectionProbe" );
-                reflProbeComp.SetProperty( "mode", UnityEngine.Rendering.ReflectionProbeMode.Baked );
-                reflProbeComp.SetProperty( "refreshMode", UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting );
-                reflProbeComp.SetProperty( "boxProjection", true );
-                reflProbeComp.SetProperty( "resolution", 256 );
-                reflProbeComp.SetProperty( "intensity", 1.5f );
-                reflProbeComp.SetProperty( "clearFlags", UnityEngine.Rendering.ReflectionProbeClearFlags.SolidColor );
-                reflProbeComp.SetProperty( "backgroundColor", Color.black );
-                reflProbeComp.SetProperty( "cullingMask", cullingMask );
-                reflProbeComp.SetProperty( "center", chunkBoundsCenter - bestSegmentCentroid );
-                reflProbeComp.SetProperty( "size", chunkMaxPos - chunkMinPos + Vector3.one * 2f );
-                reflProbeComp.SetProperty( "farClipPlane", 100f );
-                reflProbeComp.SetProperty( "nearClipPlane", 0.3f );
-
-                if (addProbesToMetadata) {
+				if (addProbesToMetadata)
+				{
 					// Add to the metadata
-					probeMetadata.Add(new SegmentReflectionProbeInfo() {
+					probeMetadata.Add(new SegmentReflectionProbeInfo()
+					{
 #if OVERLOAD_LEVEL_EDITOR
-                        ProbeObject = reflProbeComp.ownerGameObject,
+						ProbeObject = reflProbeComp.ownerGameObject,
 #else
-                        ProbeObject = reflProbeComp.ownerGameObject.InternalObject,
+						ProbeObject = reflProbeComp.ownerGameObject.InternalObject,
 #endif
-                        ProbeType = SegmentReflectionProbeType.ConverterGenerated,
+						ProbeType = SegmentReflectionProbeType.ConverterGenerated,
 						SegmentIndex = editorSegmentIndexToPackedSegmentIndex[bestSegmentIndex],
 					});
 				}
 			}
 
-			return probeMetadata.ToArray();
+            return probeMetadata.ToArray();
+        }
+
+		static IComponentBroker GenerateReflectionProbe(ISceneBroker sceneBroker, IGameObjectBroker container, string name, Vector3 size, Vector3 position, Vector3 center, int importance)
+		{
+			var reflectionGO = sceneBroker.CreateRootGameObject(name);
+			reflectionGO.Transform.Position = position;
+			reflectionGO.Transform.Parent = container.Transform;
+
+			// TODO This culling mask is overwritten when the level is loaded.
+			int cullingMask = -1; // default enable all layers?
+			cullingMask ^= (1 << (int)Overload.UnityObjectLayers.ENEMY_MESH); // Ignore enemies when rendering
+			cullingMask ^= (1 << (int)Overload.UnityObjectLayers.ITEMS); // Ignore items when rendering
+			cullingMask ^= (1 << (int)Overload.UnityObjectLayers.RP_IGNORE); // Ignore items when rendering
+
+			var reflProbeComp = reflectionGO.AddComponent("ReflectionProbe");
+			reflProbeComp.SetProperty("mode", UnityEngine.Rendering.ReflectionProbeMode.Realtime); // NOTE: overwritten on level load
+			reflProbeComp.SetProperty("refreshMode", UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake); // NOTE: overwritten on level load
+			reflProbeComp.SetProperty("boxProjection", true);
+			reflProbeComp.SetProperty("resolution", 256);
+			reflProbeComp.SetProperty("intensity", 1.5f); // NOTE: overwritten on level load
+			reflProbeComp.SetProperty("clearFlags", UnityEngine.Rendering.ReflectionProbeClearFlags.SolidColor);
+			reflProbeComp.SetProperty("backgroundColor", Color.black);
+			reflProbeComp.SetProperty("cullingMask", cullingMask);
+			reflProbeComp.SetProperty("center", center);
+			reflProbeComp.SetProperty("size", size);
+			reflProbeComp.SetProperty("importance", importance);
+			reflProbeComp.SetProperty("farClipPlane", 100f);
+			reflProbeComp.SetProperty("nearClipPlane", 0.3f);
+			return reflProbeComp;
 		}
-#endregion
+		#endregion
 	}
 
 	public static void WriteSerializationLevelHeader(OverloadLevelConvertSerializer serializer, uint levelType)
