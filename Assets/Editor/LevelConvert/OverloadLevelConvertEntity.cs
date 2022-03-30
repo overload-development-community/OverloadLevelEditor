@@ -150,6 +150,7 @@ public partial class OverloadLevelConverter
 
 			foreach (int entity_idx in overloadLevelData.EnumerateAliveEntityIndices()) {
 				var entity_src = overloadLevelData.entity[entity_idx];
+				var entity_orient = OpenTKExtensions.OpenTKQuaternion.ExtractRotation(entity_src.rotation).ToUnity();
 
 				//Look for robot spawn points
 				if ((entity_src.Type == OverloadLevelEditor.EntityType.SPECIAL) && (entity_src.SubType == (int)OverloadLevelEditor.SpecialSubType.ROBOT_SPAWN_POINT)) {
@@ -158,20 +159,20 @@ public partial class OverloadLevelConverter
 				} else if ((entity_src.Type == OverloadLevelEditor.EntityType.SPECIAL) && (entity_src.SubType == (int)OverloadLevelEditor.SpecialSubType.PLAYER_START)) {
 					if (!found_player_start) {
 						// First player spawn point (still added to list)
-						player_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_src.rotation.ExtractRotation().ToUnity(), entity_src.m_multiplayer_team_association_mask));
+						player_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_orient, entity_src.m_multiplayer_team_association_mask));
 						found_player_start = true;
 					} else {
 						// (Alternative) Player spawn points
-						player_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_src.rotation.ExtractRotation().ToUnity(), entity_src.m_multiplayer_team_association_mask));
+						player_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_orient, entity_src.m_multiplayer_team_association_mask));
 						continue;
 					}
 				} else if ((entity_src.Type == OverloadLevelEditor.EntityType.ITEM) && (entity_src.SubType == (int)OverloadLevelEditor.ItemSubType.CM_SPAWN)) {
 					// Item spawn points (uses "super" flag for team bit = 1, otherwise team bit = 0)
-					item_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_src.rotation.ExtractRotation().ToUnity(), ((Overload.EntityPropsItem)entity_src.entity_props).super ? 1 : 0));
+					item_spawn_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_orient, ((Overload.EntityPropsItem)entity_src.entity_props).super ? 1 : 0));
 					continue;
 				} else if ((entity_src.Type == OverloadLevelEditor.EntityType.PROP) && (entity_src.SubType == (int)OverloadLevelEditor.PropSubType.MP_CAMERA)) {
 					// Item spawn points
-					mp_camera_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_src.rotation.ExtractRotation().ToUnity(), 0));
+					mp_camera_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_orient, 0));
 					continue;
 				}
 
@@ -214,7 +215,6 @@ public partial class OverloadLevelConverter
 				}
 
 				var entity_position = entity_src.position.ToUnity();
-				var entity_orient = entity_src.rotation.ExtractRotation().ToUnity();
 				var entity_instance = scene.InstantiatePrefab(cached_game_object_prefab);
 				if (entity_instance == null) {
 					// Failed to instantiate the Prefab
