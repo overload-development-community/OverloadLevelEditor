@@ -48,10 +48,10 @@ namespace OverloadLevelEditor
 		public bool marked;
 		public int chunk_plane_order;       //if -1, this isn't a splitting plane.  Else it determines priority.
 
-		Vector2[] uv_default = { new Vector2(0f, 0f),
-										 new Vector2(0f, 1f),
+		Vector2[] uv_default = { new Vector2(1f, 0f),
 										 new Vector2(1f, 1f),
-										 new Vector2(1f, 0f)
+										 new Vector2(0f, 1f),
+										 new Vector2(0f, 0f)
 									  };
 
 		public Side(Segment seg, int n)
