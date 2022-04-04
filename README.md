@@ -18,7 +18,7 @@ Source code to Overload Level Editor (OLE) and Decal Mesh Editor (DMeshEditor)
 - Fix lava particle effect size (by kevin)
 - Align copy/paste by edge (by kevin)
 - UV Editor window UI location/visible tweaks (by Sirius)
-- Fix quaternion conversion used for light rotation (by Arne)
+- Fix quaternion conversion used for entity rotation (by Arne)
 - Add "Bisect Polygon" button (by Sirius)
 - Locale independent hunter/falcon export (by Arne)
 - Fix export with portal with lava slave side (by Arne)
@@ -30,6 +30,11 @@ Source code to Overload Level Editor (OLE) and Decal Mesh Editor (DMeshEditor)
 - Fix degenerate cases; make drag mark update marked vertex/face counts correctly (by Sirius)
 - Fix display of textures in decal list (by Arne)
 - Show current entity coordinates in Entity Coords input box (by Sirius)
+- Fix inverted default segment UV orders (by kevin)
+- Custom reflection probe options (by kevin)
+  - Trigger entity subtype for placing reflection probes directly instead of through LevelPost
+  - Checkbox in level custom info to include or exclude default chunk-based reflection probes on export
+  - Exported reflection probes are always forced on
 
 #### How to build
 
