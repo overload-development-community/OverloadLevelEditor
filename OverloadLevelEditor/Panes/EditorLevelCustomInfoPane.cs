@@ -51,6 +51,7 @@ namespace OverloadLevelEditor
 			this.checkBoxAlienLava.Checked = level.custom_level_info.m_alien_lava;
 			this.checkBoxNoExplosionsOnExit.Checked = level.custom_level_info.m_exit_no_explosions;
 			this.comboBoxObjective.SelectedIndex = (int)level.custom_level_info.m_objective;
+			this.checkBoxIncludeDefaultReflectionProbes.Checked = level.custom_level_info.m_include_default_reflection_probes;
 		}
 
 		public void SetDataString(string s)
@@ -152,6 +153,18 @@ namespace OverloadLevelEditor
 			textBoxExitMusicStartTime_Leave(sender, e);
 			textBoxObjectiveCount_Leave(sender, e);
 
+		}
+
+		private void checkBoxIncludeDefaultReflectionProbes_CheckedChanged(object sender, EventArgs e)
+		{
+			if (ActiveLevel == null) return;
+
+			var newVal = checkBoxIncludeDefaultReflectionProbes.Checked;
+			if(newVal != ActiveLevel.custom_level_info.m_include_default_reflection_probes)
+			{
+				ActiveLevel.custom_level_info.m_include_default_reflection_probes = newVal;
+				ActiveLevel.dirty = true;
+			}
 		}
 	}
 }

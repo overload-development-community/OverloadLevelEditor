@@ -174,6 +174,11 @@ public partial class OverloadLevelConverter
 					mp_camera_points.Add(new LevelData.SpawnPoint(entity_src.position.ToUnity(), entity_src.rotation.ExtractRotation().ToUnity(), 0));
 					continue;
 				}
+				if(entity_src.Type == OverloadLevelEditor.EntityType.TRIGGER && entity_src.SubType == (int)OverloadLevelEditor.TriggerSubType.REFLECTION_PROBE)
+				{
+					// reflection probe -- handled separately
+					continue;
+				}
 
 				// Resolve the prefab for the entity
 				Dictionary<int, IGameObjectBroker> cache_subtype_map;
