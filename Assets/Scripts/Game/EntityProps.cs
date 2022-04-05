@@ -302,7 +302,18 @@ namespace Overload
 			set { m_no_chunk = value; }
 		}
 
+		/// <summary>
+		/// Depth of the door's auto-open trigger, in units. Includes both sides of the door.
+		/// Set to null or a negative value to use the door's default value.
+		/// </summary>
+		public float? TriggerDepth
+        {
+			get { return m_trigger_depth; }
+			set { m_trigger_depth = (value == null || value < 0) ? null : value; }
+        }
+
 		public DoorLock m_door_lock = DoorLock.NONE;
+		public float? m_trigger_depth;
 		public bool m_robot_access = false;
 		public bool m_no_chunk = false;			// Not part of a chunk for activation purposes
 

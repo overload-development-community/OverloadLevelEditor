@@ -86,6 +86,10 @@ namespace OverloadLevelEditor
 			root["door_lock"] = ((int)entity_props.m_door_lock).ToString();
 			root["robot_access"] = entity_props.m_robot_access.ToString();
 			root["no_chunk"] = entity_props.m_no_chunk.ToString();
+			if (entity_props.m_trigger_depth.HasValue)
+			{
+				root["trigger_depth"] = entity_props.m_trigger_depth.ToString();
+			}
 		}
 
 		public void Deserialize( EntityPropsDoor entity_props, JObject root )
@@ -93,6 +97,10 @@ namespace OverloadLevelEditor
 			entity_props.m_door_lock = root["door_lock"].GetEnum<DoorLock>(DoorLock.NONE);
 			entity_props.m_robot_access = root["robot_access"].GetBool();
 			entity_props.m_no_chunk = root["no_chunk"].GetBool();
+			if (root["trigger_depth"].IsValid())
+			{
+				entity_props.m_trigger_depth = root["trigger_depth"].GetFloat();
+			}
 		}
 
 		// ITEM
