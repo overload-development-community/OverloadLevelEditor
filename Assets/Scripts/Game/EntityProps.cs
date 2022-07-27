@@ -374,9 +374,16 @@ namespace Overload
 			set { m_no_chunk = value; }
 		}
 
+		public float? Hp
+        {
+			get { return m_hp; }
+			set { m_hp = value; }
+        }
+
 		public bool m_no_chunk = false;
 		public bool invulnerable = false;
 		public int index = 0;
+		public float? m_hp = null;
 	}
 
 	[Serializable]
@@ -659,6 +666,12 @@ namespace Overload
 			set { ed_invulnerable = value; }
 		}
 
+		public float? Hp
+        {
+			get { return m_hp; }
+			set { m_hp = value; }
+        }
+
 		public MatcenSpecialProperties special_props = MatcenSpecialProperties.NONE;
 		public int m_max_alive = 3;
 		public MatcenSpawnWait m_spawn_wait = MatcenSpawnWait.MEDIUM;
@@ -667,6 +680,7 @@ namespace Overload
 		public EnemyType matcen_spawn_type_2 = EnemyType.RECOILA;
 		public float matcen_spawn_probability_2 = 0f;
 		public bool ed_invulnerable = false;
+		public float? m_hp = null;
 	}
 
 #if OVERLOAD_LEVEL_EDITOR

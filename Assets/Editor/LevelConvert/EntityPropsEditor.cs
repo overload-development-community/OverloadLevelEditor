@@ -118,6 +118,10 @@ namespace OverloadLevelEditor
 			root["invulnerable"] = entity_props.invulnerable.ToString();
 			root["m_no_chunk"] = entity_props.m_no_chunk.ToString();
 			root["index"] = entity_props.index.ToString();
+			if (entity_props.m_hp.HasValue)
+			{
+				root["m_hp"] = entity_props.m_hp.ToString();
+			}
 		}
 
 		public void Deserialize( EntityPropsProp entity_props, JObject root )
@@ -125,6 +129,10 @@ namespace OverloadLevelEditor
 			entity_props.invulnerable = root["invulnerable"].GetBool();
 			entity_props.m_no_chunk = root["m_no_chunk"].GetBool();
 			entity_props.index = root["index"].GetInt();
+			if (root["m_hp"].IsValid())
+			{
+				entity_props.m_hp = root["m_hp"].GetFloat();
+			}
 		}
 
 		// SCRIPT
@@ -223,6 +231,10 @@ namespace OverloadLevelEditor
 			root["m_max_alive"] = entity_props.m_max_alive.ToString();
 			root["m_spawn_wait"] = entity_props.m_spawn_wait.ToString();
 			root["ed_invulnerable"] = entity_props.ed_invulnerable.ToString();
+			if (entity_props.m_hp.HasValue)
+			{
+				root["m_hp"] = entity_props.m_hp.ToString();
+			}
 		}
 
 		public void Deserialize(EntityPropsSpecial entity_props, JObject root )
@@ -235,6 +247,10 @@ namespace OverloadLevelEditor
 			entity_props.m_max_alive = root["m_max_alive"].GetInt();
 			entity_props.m_spawn_wait = root["m_spawn_wait"].GetEnum<MatcenSpawnWait>(MatcenSpawnWait.MEDIUM);
 			entity_props.ed_invulnerable = root["ed_invulnerable"].GetBool();
+			if (root["m_hp"].IsValid())
+			{
+				entity_props.m_hp = root["m_hp"].GetFloat();
+			}
 		}
 	}
 
