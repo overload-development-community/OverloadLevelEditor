@@ -389,7 +389,9 @@ public partial class OverloadLevelConverter
 							if(p_special.m_hp.HasValue)
                             {
 								e_special_destroyable.SetProperty("m_hp", p_special.m_hp);
-                            }
+								// Use this property to tell olmod that it shouldn't add extra HP to this matcen based on mission progress.
+								e_special_destroyable.SetProperty("m_special_index", 2);
+							}
 						} break;
 
 					case Overload.EntityPropsType.Trigger: {
