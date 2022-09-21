@@ -375,10 +375,10 @@ namespace Overload
 		}
 
 		public float? Hp
-        {
+		{
 			get { return m_hp; }
 			set { m_hp = value; }
-        }
+		}
 
 		public bool m_no_chunk = false;
 		public bool invulnerable = false;
@@ -667,10 +667,10 @@ namespace Overload
 		}
 
 		public float? Hp
-        {
+		{
 			get { return m_hp; }
 			set { m_hp = value; }
-        }
+		}
 
 		public MatcenSpecialProperties special_props = MatcenSpecialProperties.NONE;
 		public int m_max_alive = 3;

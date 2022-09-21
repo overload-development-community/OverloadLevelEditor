@@ -387,7 +387,7 @@ public partial class OverloadLevelConverter
 							e_special.SetProperty("m_matcen_spawn_wait", (float)p_special.m_spawn_wait);
 							e_special.SetProperty("m_invulnerable", (bool)p_special.ed_invulnerable);
 							if(p_special.m_hp.HasValue)
-                            {
+							{
 								e_special_destroyable.SetProperty("m_hp", p_special.m_hp);
 								// Use this property to tell olmod that it shouldn't add extra HP to this matcen based on mission progress.
 								e_special_destroyable.SetProperty("m_special_index", 2);
