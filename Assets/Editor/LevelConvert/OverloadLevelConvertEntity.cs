@@ -304,6 +304,11 @@ public partial class OverloadLevelConverter
 								portal_index = -1;
 							}
 
+							if (p_door.TriggerDepth.HasValue)
+                            {
+								entity_instance.GetComponentInChildren("DoorAnimating").SetProperty<float>("m_player_trigger_depth", p_door.TriggerDepth.Value);
+							}
+
 							e_door.SetProperty("LockType", p_door.m_door_lock);
 							e_door.SetProperty("Portal", portal_index);
 							e_door.SetProperty("NoChunk", p_door.m_no_chunk);
