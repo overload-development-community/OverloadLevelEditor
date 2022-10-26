@@ -6,7 +6,7 @@ Source code to Overload Level Editor (OLE) and Decal Mesh Editor (DMeshEditor)
 
 #### How to run
 
-- Download and extract the latest version (https://github.com/overload-development-community/OverloadLevelEditor/releases/download/v1.1.7.1/OverloadLevelEditor-1.1.7.1.zip) to a local folder.
+- Download and extract the latest version (https://github.com/overload-development-community/OverloadLevelEditor/releases/download/v1.1.8.0/OverloadLevelEditor-1.1.8.0.zip) to a local folder.
 
 - Run `OverloadLevelEditor.exe -datadir F:\SteamLibrary\steamapps\common\Overload\OverloadLevelEditor -gamedir F:\SteamLibrary\steamapps\common\Overload` (change path to datadir to your installed OverloadLevelEditor folder and gamedir to your installed Overload folder containing Overload.exe)
 
@@ -35,6 +35,10 @@ Source code to Overload Level Editor (OLE) and Decal Mesh Editor (DMeshEditor)
   - Trigger entity subtype for placing reflection probes directly instead of through LevelPost
   - Checkbox in level custom info to include or exclude default chunk-based reflection probes on export
   - Exported reflection probes are always forced on
+- New TriggerDepth property for controlling the automatic opening proximity for doors (by kevin)
+  - Default is 12 units
+  - Clearing/not setting uses default
+- New optional starting HP property for Prop and Special entities (power cores, reactors, matcens) (by kevin)
 
 #### How to build
 
