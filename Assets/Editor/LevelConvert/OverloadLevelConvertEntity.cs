@@ -351,11 +351,16 @@ public partial class OverloadLevelConverter
 
 					case Overload.EntityPropsType.Prop: {
 							var e_prop = entity_instance.GetComponentInChildren("PropBase");
+							var e_special_destroyable = entity_instance.GetComponentInChildren("Destroyable");
 							var p_prop = (Overload.EntityPropsProp)entity_props;
 
 							e_prop.SetProperty("m_invulnerable", p_prop.invulnerable);
 							e_prop.SetProperty("m_index", p_prop.index);
 							e_prop.SetProperty("NoChunk", p_prop.m_no_chunk);
+							if (p_prop.m_hp.HasValue)
+							{
+								e_special_destroyable.SetProperty("m_hp", p_prop.m_hp);
+							}
 						} break;
 
 					case Overload.EntityPropsType.Script: {
@@ -369,6 +374,7 @@ public partial class OverloadLevelConverter
 
 					case Overload.EntityPropsType.Special: {
 							var e_special = entity_instance.GetComponentInChildren("RobotMatcen");
+							var e_special_destroyable = entity_instance.GetComponentInChildren("Destroyable");
 							var p_special = (Overload.EntityPropsSpecial)entity_props;
 							float spawn_prob1 = (float)p_special.matcen_spawn_probability_1;
 							float spawn_prob2 = (float)p_special.matcen_spawn_probability_2;
@@ -385,6 +391,12 @@ public partial class OverloadLevelConverter
 							e_special.SetProperty("m_matcen_max_robots_alive", p_special.m_max_alive);
 							e_special.SetProperty("m_matcen_spawn_wait", (float)p_special.m_spawn_wait);
 							e_special.SetProperty("m_invulnerable", (bool)p_special.ed_invulnerable);
+							if(p_special.m_hp.HasValue)
+							{
+								e_special_destroyable.SetProperty("m_hp", p_special.m_hp);
+								// Use this property to tell olmod that it shouldn't add extra HP to this matcen based on mission progress.
+								e_special_destroyable.SetProperty("m_special_index", 2);
+							}
 						} break;
 
 					case Overload.EntityPropsType.Trigger: {
